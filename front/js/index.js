@@ -31,6 +31,7 @@
     })
     .then(function(datas){
         datas.forEach(product =>{
+            let prdUrl = "./product.html";
             let items = document.getElementById('items');
             a = document.createElement('a');
             article = document.createElement('article');
@@ -48,7 +49,7 @@
             article.appendChild(h3);
             article.appendChild(p);
 
-            a.href = product._id;
+            a.href = prdUrl += `?id=${product._id}`;
             img.src = product.imageUrl;
             img.alt = product.altTxt;
             h3.innerHTML = product.name;
