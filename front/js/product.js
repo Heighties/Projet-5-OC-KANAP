@@ -29,4 +29,21 @@ function hydrateProduct(product){
         document.getElementById('price').textContent = product.price;
         document.getElementById("description").textContent = product.description;
     
+    const colors = product.colors;
+    console.log(colors);
+
+    for (let i = 0; i < colors.length; i++){
+        option = document.createElement('option');
+        option.text = colors[i];
+        option.value = colors[i];
+        document.getElementById('colors').appendChild(option);
+    }
+
+        // product.forEach(colors => {
+        //     const option = document.createElement('option');
+        //     document.getElementById('colors').appendChild(option);
+
+        //     option.innerHTML = product.colors;
+        // });
+    
 }

@@ -22,6 +22,7 @@
     // article.appendChild(prdName);
     // prdName.classList.add("productName");
     // prdName.innerHTML = "TEST";
+
    
     fetch(`http://localhost:3000/api/products`).then(function(res){
         if(res.ok){
