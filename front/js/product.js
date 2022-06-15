@@ -12,8 +12,10 @@
     
 //ecoute le btn
 btnBasket.addEventListener("click", (event)=>{
+    new Basket();
     event.preventDefault();
     console.log(product);
+    Basket.add(product)
 })
 })()
 
