@@ -5,6 +5,8 @@
     const product = await getProduct(productId);
     console.log(product);
     hydrateProduct(product);
+    
+    //bouton ajouté au panier
     const btnBasket = document.getElementById("addToCart");
 
     
