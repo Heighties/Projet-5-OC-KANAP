@@ -68,3 +68,14 @@ function getTotalPrice(){
     }
     return number;
 }
+
+//récupère bouton ajouter au panier
+// const btnBasket = document.getElementById("addToCart");
+
+//ecoute le btn
+// btnBasket.addEventListener("click", (event)=>{
+//     event.preventDefault();
+//     console.log(product);
+// })
+
+//récupère les valeurs

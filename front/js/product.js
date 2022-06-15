@@ -5,6 +5,14 @@
     const product = await getProduct(productId);
     console.log(product);
     hydrateProduct(product);
+    const btnBasket = document.getElementById("addToCart");
+
+    
+//ecoute le btn
+btnBasket.addEventListener("click", (event)=>{
+    event.preventDefault();
+    console.log(product);
+})
 })()
 
 function getProductId(){
@@ -39,11 +47,8 @@ function hydrateProduct(product){
         document.getElementById('colors').appendChild(option);
     }
 
-        // product.forEach(colors => {
-        //     const option = document.createElement('option');
-        //     document.getElementById('colors').appendChild(option);
-
-        //     option.innerHTML = product.colors;
-        // });
     
 }
+
+
+//stocker produit ajouté dans le local storage
