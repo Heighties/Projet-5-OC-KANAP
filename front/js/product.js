@@ -8,14 +8,14 @@
     
     //bouton ajouté au panier
     const btnBasket = document.getElementById("addToCart");
-
+    let basket = new Basket();
     
 //ecoute le btn
 btnBasket.addEventListener("click", (event)=>{
-    new Basket();
+    
     event.preventDefault();
     console.log(product);
-    Basket.add(product)
+    basket.add(product);
 })
 })()
 

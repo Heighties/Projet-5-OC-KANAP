@@ -14,13 +14,14 @@ class Basket{
             this.basket = JSON.parse(basket);
         }
     }
+    
 
     save(){
         localStorage.setItem("basket", JSON.stringify(this.basket));
     }
 
+
     add(product){
-        let basket = getBasket();
         let foundProduct = this.basket.find(p => p.id == product.id);
         if(foundProduct != undefined){
             foundProduct.quantity++;
@@ -28,12 +29,12 @@ class Basket{
             product.quantity = 1;
             basket.push(product); 
         }
-        save();
+        this.save();
     }
 
     remove(product){
         this.basket = this.basket.filter(p => p.id != product.id);
-        save();
+        this.save();
     }
 
     changeQuantity(product,quantity){
@@ -41,9 +42,9 @@ class Basket{
         if(foundProduct != undefined){
             foundProduct.quantity += quantity;
             if(foundProduct.quantity <= 0){
-                removeFromBasket(foundProduct);
+                remove(foundProduct);
             } else{
-                saveBasket();
+                this.save();
             }
         }
     }
