@@ -8,15 +8,17 @@
     
     //bouton ajouté au panier
     const btnBasket = document.getElementById("addToCart");
-    let basket = new Basket();
+    // let basket = new Basket();
     
+
+    btnBasket.addEventListener("click", addBasket(product));
 //ecoute le btn
-btnBasket.addEventListener("click", (event)=>{
+// btnBasket.addEventListener("click", (event)=>{
     
-    event.preventDefault();
-    console.log(product);
-    basket.add(product);
-})
+//     event.preventDefault();
+//     console.log(product);
+//     basket.add(product);
+// })
 })()
 
 function getProductId(){
@@ -40,6 +42,7 @@ function hydrateProduct(product){
         img.alt = product.altTxt;
         document.getElementById('price').textContent = product.price;
         document.getElementById("description").textContent = product.description;
+        document.getElementById("title").textContent = product.name;
     
     const colors = product.colors;
     console.log(colors);

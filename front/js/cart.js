@@ -1,139 +1,141 @@
-fetch(`http://localhost:3000/api/products`).then(function(res){
-        if(res.ok){
-            return res.json();
-        }
-        console.log(res);
-    })
 //en mode orienté objet
-class Basket{
-    constructor(){
-        let basket = localStorage.getItem("basket");
-        if(basket == null){
-            this.basket = [];
-        }else{
-            this.basket = JSON.parse(basket);
-        }
-    }
+
+// fetch(`http://localhost:3000/api/products`).then(function(res){
+//         if(res.ok){
+//             return res.json();
+//         }
+//         console.log(res);
+//     })
+
+// class Basket{
+//     constructor(){
+//         let basket = localStorage.getItem("basket");
+//         if(basket == null){
+//             this.basket = [];
+//         }else{
+//             this.basket = JSON.parse(basket);
+//         }
+//     }
     
 
-    save(){
-        localStorage.setItem("basket", JSON.stringify(this.basket));
-    }
+//     save(){
+//         localStorage.setItem("basket", JSON.stringify(this.basket));
+//     }
 
 
-    add(product){
-        let foundProduct = this.basket.find(p => p.id == product.id);
-        if(foundProduct != undefined){
-            foundProduct.quantity++;
-        }else{
-            product.quantity = 1;
-            basket.push(product); 
-        }
-        this.save();
-    }
+//     add(product){
+//         let foundProduct = this.basket.find(p => p.id == product.id);
+//         if(foundProduct != undefined){
+//             foundProduct.quantity++;
+//         }else{
+//             product.quantity = 1;
+//             basket.push(product); 
+//         }
+//         this.save();
+//     }
 
-    remove(product){
-        this.basket = this.basket.filter(p => p.id != product.id);
-        this.save();
-    }
+//     remove(product){
+//         this.basket = this.basket.filter(p => p.id != product.id);
+//         this.save();
+//     }
 
-    changeQuantity(product,quantity){
-        let foundProduct = this.basket.find(p => p.id == product.id);
-        if(foundProduct != undefined){
-            foundProduct.quantity += quantity;
-            if(foundProduct.quantity <= 0){
-                remove(foundProduct);
-            } else{
-                this.save();
-            }
-        }
-    }
+//     changeQuantity(product,quantity){
+//         let foundProduct = this.basket.find(p => p.id == product.id);
+//         if(foundProduct != undefined){
+//             foundProduct.quantity += quantity;
+//             if(foundProduct.quantity <= 0){
+//                 remove(foundProduct);
+//             } else{
+//                 this.save();
+//             }
+//         }
+//     }
 
-    getNumberProduct(){
-        let number = 0;
-        for(let product of this.basket){
-            number += product.quantity;
-        }
-        return number;
-    }
+//     getNumberProduct(){
+//         let number = 0;
+//         for(let product of this.basket){
+//             number += product.quantity;
+//         }
+//         return number;
+//     }
 
-    getTotalPrice(){
-        let total = 0;
-        for(let product of this.basket){
-            total += product.quantity * product.price;
-        }
-        return number;
-    }
+//     getTotalPrice(){
+//         let total = 0;
+//         for(let product of this.basket){
+//             total += product.quantity * product.price;
+//         }
+//         return number;
+//     }
     
-}
+// }
 
 
 
 // PREMIERE METHODE
 
-// function saveBasket(basket){
-//     //prend objet et transforme en chaine de char
-//     localStorage.setItem("basket", JSON.stringify(basket));
-// }
+function saveBasket(basket){
+    //prend objet et transforme en chaine de char
+    localStorage.setItem("basket", JSON.stringify(basket));
+}
 
-// function getBasket(){
-//     let basket = localStorage.getItem("basket");
-//     if(basket == null){
-//         return [];
-//     }else{
-//         // prend chaine de char et transforme en objet
-//         return JSON.parse(basket);
-//     }
-// }
+function getBasket(){
+    let basket = localStorage.getItem("basket");
+    if(basket == null){
+        return [];
+    }else{
+        // prend chaine de char et transforme en objet
+        return JSON.parse(basket);
+    }
+}
 
-// function addBasket(product){
-//     let basket = getBasket();
-//     let foundProduct = basket.find(p => p.id == product.id);
-//     if(foundProduct != undefined){
-//         foundProduct.quantity++;
-//     }else{
-//         product.quantity = 1;
-//         basket.push(product); 
-//     }
-//     saveBasket(basket);
-// }
+function addBasket(product){
+    let basket = getBasket();
+    let foundProduct = basket.find(p => p.id == product.id);
+    if(foundProduct != undefined){
+        foundProduct.quantity++;
+    }else{
+        product.quantity = 1;
+        basket.push(product); 
+    }
+    saveBasket(basket);
+}
 
-// function removeFromBasket(product){
-//     let basket = getBasket();
-//     basket = basket.filter(p => p.id != product.id);
-//     saveBasket(basket);
-// }
+function removeFromBasket(product){
+    let basket = getBasket();
+    basket = basket.filter(p => p.id != product.id);
+    saveBasket(basket);
+}
 
-// function changeQuantity(product,quantity){
-//     let basket = getBasket();
-//     let foundProduct = basket.find(p => p.id == product.id);
-//     if(foundProduct != undefined){
-//         foundProduct.quantity += quantity;
-//         if(foundProduct.quantity <= 0){
-//             removeFromBasket(foundProduct);
-//         } else{
-//             saveBasket(basket);
-//         }
-//     }
-// }
+function changeQuantity(product,quantity){
+    let basket = getBasket();
+    let foundProduct = basket.find(p => p.id == product.id);
+    if(foundProduct != undefined){
+        foundProduct.quantity += quantity;
+        if(foundProduct.quantity <= 0){
+            removeFromBasket(foundProduct);
+        } else{
+            saveBasket(basket);
+        }
+    }
+}
 
-// function getNumberProduct(){
-//     let basket = getBasket();
-//     let number = 0;
-//     for(let product of basket){
-//         number += product.quantity;
-//     }
-//     return number;
-// }
+function getNumberProduct(){
+    let basket = getBasket();
+    let number = 0;
+    for(let product of basket){
+        number += product.quantity;
+    }
+    return number;
+}
 
-// function getTotalPrice(){
-//     let basket = getBasket();
-//     let total = 0;
-//     for(let product of basket){
-//         total += product.quantity * product.price;
-//     }
-//     return number;
-// }
+function getTotalPrice(){
+    let basket = getBasket();
+    let total = 0;
+    for(let product of basket){
+        total += product.quantity * product.price;
+    }
+    return number;
+}
 
 //récupère bouton ajouter au panier
 // const btnBasket = document.getElementById("addToCart");
