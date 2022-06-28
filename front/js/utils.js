@@ -146,6 +146,8 @@ function getNumberProduct(){
     return number;
 }
 
+//avoir le prix total du panier
+
 function getTotalPrice(){
     let basket = getBasket();
     let total = 0;
