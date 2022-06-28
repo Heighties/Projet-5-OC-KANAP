@@ -27,7 +27,7 @@
 
 
 //     add(product){
-//         let foundProduct = this.basket.find(p => p.id == product.id);
+//         let foundProduct = this.basket.find(p => p._id == product._id);
 //         if(foundProduct != undefined){
 //             foundProduct.quantity++;
 //         }else{
@@ -38,12 +38,12 @@
 //     }
 
 //     remove(product){
-//         this.basket = this.basket.filter(p => p.id != product.id);
+//         this.basket = this.basket.filter(p => p._id != product._id);
 //         this.save();
 //     }
 
 //     changeQuantity(product,quantity){
-//         let foundProduct = this.basket.find(p => p.id == product.id);
+//         let foundProduct = this.basket.find(p => p._id == product._id);
 //         if(foundProduct != undefined){
 //             foundProduct.quantity += quantity;
 //             if(foundProduct.quantity <= 0){
@@ -71,7 +71,6 @@
 //     }
     
 // }
-
 
 
 // PREMIERE METHODE
@@ -155,6 +154,7 @@ function getTotalPrice(){
     }
     return number;
 }
+
 
 //récupère bouton ajouter au panier
 // const btnBasket = document.getElementById("addToCart");
