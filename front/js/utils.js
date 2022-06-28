@@ -152,12 +152,12 @@ function getTotalPrice(){
 }
 
 //récupère bouton ajouter au panier
-const btnBasket = document.getElementById("addToCart");
+// const btnBasket = document.getElementById("addToCart");
 
 //ecoute le btn
-btnBasket.addEventListener("click", (event)=>{
-    event.preventDefault();
-    console.log(product);
-})
+// btnBasket.addEventListener("click", (event)=>{
+//     event.preventDefault();
+//     console.log(product);
+// })
 
 //récupère les valeurs
