@@ -1,3 +1,6 @@
+//*****************************BASKET**********************************//
+
+
 //en mode orienté objet
 
 // fetch(`http://localhost:3000/api/products`).then(function(res){
@@ -97,6 +100,7 @@ function getBasket(){
 
 function addBasket(product){
     let basket = getBasket();
+    //recherche dans panier s'il y a un id = id du produit à ajouter
     let foundProduct = basket.find(p => p._id === product._id);
     console.log(basket, product);
     if(foundProduct !== undefined){
@@ -112,7 +116,7 @@ function addBasket(product){
 
 function removeFromBasket(product){
     let basket = getBasket();
-    basket = basket.filter(p => p.id != product.id);
+    basket = basket.filter(p => p._id != product._id);
     saveBasket(basket);
 }
 
@@ -120,7 +124,7 @@ function removeFromBasket(product){
 
 function changeQuantity(product,quantity){
     let basket = getBasket();
-    let foundProduct = basket.find(p => p.id == product.id);
+    let foundProduct = basket.find(p => p._id == product._id);
     if(foundProduct != undefined){
         foundProduct.quantity += quantity;
         if(foundProduct.quantity <= 0){
@@ -132,6 +136,7 @@ function changeQuantity(product,quantity){
 }
 
 
+//calculer la quantité de produits dans le panier 
 
 function getNumberProduct(){
     let basket = getBasket();

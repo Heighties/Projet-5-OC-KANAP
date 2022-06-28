@@ -6,14 +6,19 @@
     console.log(product);
     hydrateProduct(product);
     
+    //input choisir quantité produit
+
+    const btnQuantity = document.getElementById("quantity");
+
     //bouton ajouté au panier
+
     const btnBasket = document.getElementById("addToCart");
+    
     // let basket = new Basket();
     
     function showMsg(){
         console.log(product);
     }
-
 
     btnBasket.addEventListener("click", addBasket);
 //ecoute le btn
