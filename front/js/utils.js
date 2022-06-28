@@ -105,6 +105,7 @@ function addBasket(product){
     //recherche dans panier s'il y a un id = id du produit à ajouter
     let foundProduct = basket.find(p => p._id === product._id);
     console.log(basket, product);
+    //Pour modifier la couleur et la quantité du produit à ajouter au panier
     const productModif = Object.assign({}, product, {
         colors : `${btnColor.value}`,
         quantity: `${btnQuantity.value}`
