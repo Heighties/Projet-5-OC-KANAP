@@ -10,8 +10,13 @@
     const btnBasket = document.getElementById("addToCart");
     // let basket = new Basket();
     
+    // function showMsg(){
+    //     console.log("coucou");
+    // }
 
-    btnBasket.addEventListener("click", addBasket(product));
+
+
+    // btnBasket.addEventListener("click", addBasket(product));
 //ecoute le btn
 // btnBasket.addEventListener("click", (event)=>{
     

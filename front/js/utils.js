@@ -73,25 +73,33 @@
 
 // PREMIERE METHODE
 
+//enregistrer le panier dans le local storage
+
 function saveBasket(basket){
-    //prend objet et transforme en chaine de char
+    //prend objet et transforme en chaine de char (serialization)
     localStorage.setItem("basket", JSON.stringify(basket));
 }
 
+//récupérer le panier
+
 function getBasket(){
     let basket = localStorage.getItem("basket");
+    //si donnée n'existe pas dans local storage => retourne null (tableau/panier vide)
     if(basket == null){
         return [];
     }else{
-        // prend chaine de char et transforme en objet
+        // prend chaine de char et transforme en objet/tableau/donnée...
         return JSON.parse(basket);
     }
 }
 
+//ajouter un produit au panier
+
 function addBasket(product){
     let basket = getBasket();
-    let foundProduct = basket.find(p => p.id == product.id);
-    if(foundProduct != undefined){
+    let foundProduct = basket.find(p => p._id === product._id);
+    console.log(basket, product);
+    if(foundProduct !== undefined){
         foundProduct.quantity++;
     }else{
         product.quantity = 1;
@@ -100,11 +108,15 @@ function addBasket(product){
     saveBasket(basket);
 }
 
+//supprimer un produit
+
 function removeFromBasket(product){
     let basket = getBasket();
     basket = basket.filter(p => p.id != product.id);
     saveBasket(basket);
 }
+
+//changer la quantité de produit
 
 function changeQuantity(product,quantity){
     let basket = getBasket();
@@ -118,6 +130,8 @@ function changeQuantity(product,quantity){
         }
     }
 }
+
+
 
 function getNumberProduct(){
     let basket = getBasket();
@@ -138,12 +152,12 @@ function getTotalPrice(){
 }
 
 //récupère bouton ajouter au panier
-// const btnBasket = document.getElementById("addToCart");
+const btnBasket = document.getElementById("addToCart");
 
 //ecoute le btn
-// btnBasket.addEventListener("click", (event)=>{
-//     event.preventDefault();
-//     console.log(product);
-// })
+btnBasket.addEventListener("click", (event)=>{
+    event.preventDefault();
+    console.log(product);
+})
 
 //récupère les valeurs
