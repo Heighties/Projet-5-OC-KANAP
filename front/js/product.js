@@ -10,6 +10,8 @@
 
     const btnQuantity = document.getElementById("quantity");
 
+    const btnColor = document.getElementById("colors");
+
     //bouton ajouté au panier
 
     const btnBasket = document.getElementById("addToCart");
@@ -20,7 +22,17 @@
         console.log(product);
     }
 
-    btnBasket.addEventListener("click", addBasket);
+    //ecoute le bouton "ajouter au panier"
+
+    btnBasket.addEventListener("click", function(e){
+        // je récupère valeur input 
+        if(btnQuantity.value > 0 && btnColor.value !== undefined && btnColor.value !== null && btnColor.value !== ""){
+            addBasket(product);
+            console.log(btnColor.value);
+        }else{
+            console.error(btnQuantity.value, btnColor.value);
+        }
+    });
 //ecoute le btn
 // btnBasket.addEventListener("click", (event)=>{
     
