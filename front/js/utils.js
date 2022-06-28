@@ -75,6 +75,9 @@
 
 // PREMIERE METHODE
 
+const btnColor = document.getElementById("colors");
+const btnQuantity = document.getElementById("quantity");
+
 //enregistrer le panier dans le local storage
 
 function saveBasket(basket){
@@ -102,11 +105,18 @@ function addBasket(product){
     //recherche dans panier s'il y a un id = id du produit à ajouter
     let foundProduct = basket.find(p => p._id === product._id);
     console.log(basket, product);
+    const productModif = Object.assign({}, product, {
+        colors : `${btnColor.value}`,
+        quantity: `${btnQuantity.value}`
+    });
+    
+    console.log(productModif);
+
     if(foundProduct !== undefined){
         foundProduct.quantity++;
     }else{
         product.quantity = 1;
-        basket.push(product); 
+        basket.push(productModif); 
     }
     saveBasket(basket);
 }

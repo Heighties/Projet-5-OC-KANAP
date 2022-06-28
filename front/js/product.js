@@ -8,9 +8,9 @@
     
     //input choisir quantité produit
 
-    const btnQuantity = document.getElementById("quantity");
+    // const btnQuantity = document.getElementById("quantity");
 
-    const btnColor = document.getElementById("colors");
+    // const btnColor = document.getElementById("colors");
 
     //bouton ajouté au panier
 
@@ -28,7 +28,7 @@
         // je récupère valeur input 
         if(btnQuantity.value > 0 && btnColor.value !== undefined && btnColor.value !== null && btnColor.value !== ""){
             addBasket(product);
-            console.log(btnColor.value);
+            // console.log(btnColor.value);
         }else{
             console.error(btnQuantity.value, btnColor.value);
         }
