@@ -78,6 +78,7 @@
 const btnColor = document.getElementById("colors");
 const btnQuantity = document.getElementById("quantity");
 
+
 //enregistrer le panier dans le local storage
 
 function saveBasket(basket){
