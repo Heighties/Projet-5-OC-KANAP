@@ -113,9 +113,14 @@ function addBasket(product){
     
     console.log(productModif);
 
+    // if(foundProduct !== undefined){
+    //     foundProduct.quantity++;
     if(foundProduct !== undefined){
-        foundProduct.quantity++;
-    }else{
+        basket.push(productModif);
+        localStorage.setItem("basket", JSON.stringify(basket));
+        console.log(basket);
+    }
+    else{
         product.quantity = 1;
         basket.push(productModif); 
     }

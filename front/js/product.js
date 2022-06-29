@@ -3,7 +3,7 @@
     const productId = getProductId();
     console.log(productId);
     const product = await getProduct(productId);
-    console.log(product);
+    // console.log(product);
     hydrateProduct(product);
     
     //input choisir quantité produit
@@ -66,7 +66,7 @@ function hydrateProduct(product){
         document.getElementById("title").textContent = product.name;
     
     const colors = product.colors;
-    console.log(colors);
+    // console.log(colors);
 
     for (let i = 0; i < colors.length; i++){
         option = document.createElement('option');
