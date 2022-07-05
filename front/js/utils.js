@@ -121,9 +121,12 @@ function addBasket(product){
         localStorage.setItem("basket", JSON.stringify(basket));
         console.log(basket);
     }
+    // if(product.id === productModif.id && product.colors === productModif.colors){
+    //     product.quantity += productModif.quantity; 
+    // }
     else{
         product.quantity = 1;
-        basket.push(productModif); 
+        basket.push(productModif);
     }
     saveBasket(basket);
 }
