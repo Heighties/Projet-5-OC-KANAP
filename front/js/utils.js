@@ -120,14 +120,38 @@ function addBasket(product){
         basket.push(productModif);
         localStorage.setItem("basket", JSON.stringify(basket));
         console.log(basket);
+
+        if(productModif._id === foundProduct._id && productModif.colors === foundProduct.colors){
+            foundProduct.quantity += productModif.quantity;
+            console.log(foundProduct.quantity); 
+        }
     }
-    // if(product.id === productModif.id && product.colors === productModif.colors){
-    //     product.quantity += productModif.quantity; 
+   
+    // if(p._id === productModif._id && p.colors === productModif.colors){
+    //     p.quantity += productModif.quantity; 
     // }
-    else{
-        product.quantity = 1;
-        basket.push(productModif);
-    }
+    // else{
+    //     product.quantity = 1;
+    //     basket.push(productModif);
+    // }
+    // else{
+    //     let existBasket = false;
+    //     let incrementeProduct;
+    //     basket.forEach(product => {
+    //         // verification de l existance du produit dans le panier ainsi que même color même id
+    //         switch(product.colors + product._id) {
+    //             case productModif.colors + productModif._id:
+    //                 existBasket = true;
+    //                 incrementeProduct = basket.indexOf(product);
+    //         }
+    //     })
+    //     if(existBasket) {
+    //         basket[incrementeProduct].quantity = + basket[incrementeProduct].quantity + + productModif.quantity;
+    //     }
+        else{
+            basket.push(productModif);
+        }
+    // }
     saveBasket(basket);
 }
 

@@ -41,10 +41,12 @@
             // console.log(btnColor.value);
 
             //Option fenêtre pop up :
-            // popupConfirmation(); 
-            
-        }else{
+            // popupConfirmation();     
+        }
+
+        else{
             console.error(btnQuantity.value, btnColor.value);
+            alert("Renseignez une couleur et/ou une quantité");
         }
     });
 //ecoute le btn
