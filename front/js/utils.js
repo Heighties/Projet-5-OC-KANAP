@@ -121,6 +121,7 @@ function addBasket(product){
         localStorage.setItem("basket", JSON.stringify(basket));
         console.log(basket);
 
+        //si produit identique déjà dans localstorage
         if(productModif._id === foundProduct._id && productModif.colors === foundProduct.colors){
             foundProduct.quantity += productModif.quantity;
             console.log(foundProduct.quantity); 
