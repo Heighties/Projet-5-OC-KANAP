@@ -99,6 +99,21 @@ function getBasket(){
     }
 }
 
+//changer la quantité de produit
+
+function changeQuantity(product,quantity){
+    let basket = getBasket();
+    let foundProduct = basket.find(p => p._id == product._id);
+    if(foundProduct != undefined){
+        foundProduct.quantity += quantity;
+        if(foundProduct.quantity <= 0){
+            removeFromBasket(foundProduct);
+        } else{
+            saveBasket(basket);
+        }
+    }
+}
+
 //ajouter un produit au panier
 
 function addBasket(product){
@@ -107,7 +122,7 @@ function addBasket(product){
     let foundProduct = basket.find(p => p._id === product._id);
     console.log(basket, product);
     //Pour modifier la couleur et la quantité du produit à ajouter au panier
-    const productModif = Object.assign({}, product, {
+    let productModif = Object.assign({}, product, {
         colors : `${btnColor.value}`,
         quantity: `${btnQuantity.value}`
     });
@@ -123,8 +138,10 @@ function addBasket(product){
 
         //si produit identique déjà dans localstorage
         if(productModif._id === foundProduct._id && productModif.colors === foundProduct.colors){
+            localStorage.getItem("basket", JSON.stringify(basket));
             foundProduct.quantity += productModif.quantity;
             console.log(foundProduct.quantity); 
+            // changeQuantity(product,quantity);
         }
     }
    
@@ -164,20 +181,7 @@ function removeFromBasket(product){
     saveBasket(basket);
 }
 
-//changer la quantité de produit
 
-function changeQuantity(product,quantity){
-    let basket = getBasket();
-    let foundProduct = basket.find(p => p._id == product._id);
-    if(foundProduct != undefined){
-        foundProduct.quantity += quantity;
-        if(foundProduct.quantity <= 0){
-            removeFromBasket(foundProduct);
-        } else{
-            saveBasket(basket);
-        }
-    }
-}
 
 
 //calculer la quantité de produits dans le panier 
