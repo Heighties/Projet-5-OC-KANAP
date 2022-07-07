@@ -139,8 +139,15 @@ function addBasket(product){
         //si produit identique déjà dans localstorage
         if(productModif._id === foundProduct._id && productModif.colors === foundProduct.colors){
             localStorage.getItem("basket", JSON.stringify(basket));
-            foundProduct.quantity += productModif.quantity;
-            console.log(foundProduct.quantity); 
+            let foundProduct = basket.find(p => p._id == product._id);
+            //quantité du produit déjà ajouté dans le panier
+            let existProductQuantity = parseInt(foundProduct.quantity);
+            //quantité du produit à ajouter
+            let productModifQuantity = parseInt(btnQuantity.value);
+            //quantité après ajout
+            let newProductQuantity = existProductQuantity += productModifQuantity;
+            existProductQuantity += productModifQuantity;
+            console.log(newProductQuantity); 
             // changeQuantity(product,quantity);
         }
     }
