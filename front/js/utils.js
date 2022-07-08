@@ -132,7 +132,7 @@ function addBasket(product){
     // if(foundProduct !== undefined){
     //     foundProduct.quantity++;
     if(foundProduct !== undefined){
-        basket.push(productModif);
+        // basket.push(productModif);
         localStorage.setItem("basket", JSON.stringify(basket));
         console.log(basket);
 
@@ -145,8 +145,20 @@ function addBasket(product){
             //quantité du produit à ajouter
             let productModifQuantity = parseInt(btnQuantity.value);
             //quantité après ajout
-            let newProductQuantity = existProductQuantity += productModifQuantity;
-            existProductQuantity += productModifQuantity;
+            let newProductQuantity = Object.assign({}, foundProduct, {
+                quantity : `${existProductQuantity += productModifQuantity}`
+            });
+            
+            for(let products of basket){
+                if(products._id == newProductQuantity._id && products.colors === newProductQuantity.colors){
+                    products.quantity = newProductQuantity.quantity;
+                }
+            }
+
+            localStorage.setItem("basket", JSON.stringify(basket));
+            // localStorage.setItem("basket", JSON.stringify(newProductQuantity));
+            // basket.splice(foundProduct, 1);
+            saveBasket(basket);
             console.log(newProductQuantity); 
             // changeQuantity(product,quantity);
         }
