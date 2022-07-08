@@ -115,7 +115,6 @@ function changeQuantity(product,quantity){
 }
 
 //ajouter un produit au panier
-
 function addBasket(product){
     let basket = getBasket();
     //recherche dans panier s'il y a un id = id du produit à ajouter
@@ -129,8 +128,6 @@ function addBasket(product){
     
     console.log(productModif);
 
-    // if(foundProduct !== undefined){
-    //     foundProduct.quantity++;
     if(foundProduct !== undefined){
         // basket.push(productModif);
         localStorage.setItem("basket", JSON.stringify(basket));
@@ -156,11 +153,8 @@ function addBasket(product){
             }
 
             localStorage.setItem("basket", JSON.stringify(basket));
-            // localStorage.setItem("basket", JSON.stringify(newProductQuantity));
-            // basket.splice(foundProduct, 1);
             saveBasket(basket);
             console.log(newProductQuantity); 
-            // changeQuantity(product,quantity);
         }
 
         else{
@@ -169,27 +163,6 @@ function addBasket(product){
         }
     }
    
-    // if(p._id === productModif._id && p.colors === productModif.colors){
-    //     p.quantity += productModif.quantity; 
-    // }
-    // else{
-    //     product.quantity = 1;
-    //     basket.push(productModif);
-    // }
-    // else{
-    //     let existBasket = false;
-    //     let incrementeProduct;
-    //     basket.forEach(product => {
-    //         // verification de l existance du produit dans le panier ainsi que même color même id
-    //         switch(product.colors + product._id) {
-    //             case productModif.colors + productModif._id:
-    //                 existBasket = true;
-    //                 incrementeProduct = basket.indexOf(product);
-    //         }
-    //     })
-    //     if(existBasket) {
-    //         basket[incrementeProduct].quantity = + basket[incrementeProduct].quantity + + productModif.quantity;
-    //     }
         else{
             basket.push(productModif);
         }
