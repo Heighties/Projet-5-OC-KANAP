@@ -150,7 +150,7 @@ function addBasket(product){
             });
             
             for(let products of basket){
-                if(products._id == newProductQuantity._id && products.colors === newProductQuantity.colors){
+                if(products._id === newProductQuantity._id && products.colors === newProductQuantity.colors){
                     products.quantity = newProductQuantity.quantity;
                 }
             }
@@ -161,6 +161,11 @@ function addBasket(product){
             saveBasket(basket);
             console.log(newProductQuantity); 
             // changeQuantity(product,quantity);
+        }
+
+        else{
+            basket.push(productModif);
+            localStorage.setItem("basket", JSON.stringify(basket));
         }
     }
    
