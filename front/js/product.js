@@ -43,13 +43,6 @@
             //Option fenêtre pop up :
             // popupConfirmation();    
         }
-
-            // if(productModif._id === foundProduct._id && productModif.colors === foundProduct.colors){
-            // // foundProduct.quantity += productModif.quantity;
-            // // console.log(foundProduct.quantity); 
-            // changeQuantity(product,quantity);
-            // }
-    
         else{
             console.error(btnQuantity.value, btnColor.value);
             alert("Renseignez une couleur et/ou une quantité");
