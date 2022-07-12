@@ -80,7 +80,6 @@ function addBasket(product){
             }
 
             localStorage.setItem("basket", JSON.stringify(basket));
-            saveBasket(basket);
             console.log(newProductQuantity); 
         }
 
