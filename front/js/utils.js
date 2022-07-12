@@ -44,32 +44,33 @@ function changeQuantity(product,quantity){
 //ajouter un produit au panier
 function addBasket(product){
     let basket = getBasket();
-    //recherche dans panier s'il y a un id = id du produit à ajouter
-    let foundProduct = basket.find(p => p._id === product._id);
-    console.log(basket, product);
-    //Pour modifier la couleur et la quantité du produit à ajouter au panier
     let productModif = Object.assign({}, product, {
         colors : `${btnColor.value}`,
         quantity: `${btnQuantity.value}`
     });
+    //recherche dans panier s'il y a un id = id du produit à ajouter
+    let foundProduct = basket.find(p => p._id === productModif._id);
+    // recherche si même produit avec même couleur
+    let foundExactlySameProduct = basket.find(p => p._id === productModif._id && p.colors === productModif.colors);
+    let foundSameProductColorDiff = basket.find(p => p._id === productModif._id && p.colors !== productModif.colors);
+    //Pour modifier la couleur et la quantité du produit à ajouter au panier
     
-    console.log(productModif);
-
-    if(foundProduct !== undefined){
+    
+    // Si je trouve Exactement le même produit je veux modifier sa quantité dans le LS
+    if(foundExactlySameProduct !== undefined){
         // basket.push(productModif);
         localStorage.setItem("basket", JSON.stringify(basket));
-        console.log(basket);
+      
 
-        //si produit identique déjà dans localstorage
-        if(productModif._id === foundProduct._id && productModif.colors === foundProduct.colors){
+        //si produit EXACTEMENT identique déjà dans localstorage
+        
             localStorage.getItem("basket", JSON.stringify(basket));
-            let foundProduct = basket.find(p => p._id == product._id);
             //quantité du produit déjà ajouté dans le panier
-            let existProductQuantity = parseInt(foundProduct.quantity);
+            let existProductQuantity = parseInt(foundExactlySameProduct.quantity);
             //quantité du produit à ajouter
             let productModifQuantity = parseInt(btnQuantity.value);
             //quantité après ajout
-            let newProductQuantity = Object.assign({}, foundProduct, {
+            let newProductQuantity = Object.assign({}, foundExactlySameProduct, {
                 quantity : `${existProductQuantity += productModifQuantity}`
             });
             
@@ -78,18 +79,25 @@ function addBasket(product){
                     products.quantity = newProductQuantity.quantity;
                 }
             }
-
+            
             localStorage.setItem("basket", JSON.stringify(basket));
             console.log(newProductQuantity); 
-        }
+    }
 
-        else{
+    // si je trouve produit avec même ID, mais couleur diff, ajouter nouveau produit dans LS (rangé avec produits du même type)
+    else if(foundSameProductColorDiff !== undefined){
+        localStorage.setItem("basket", JSON.stringify(basket));
+        console.log(basket);
+        
+        //Ranger les produits par IDs
+
+        //si produit identique déjà dans localstorage
             basket.push(productModif);
             localStorage.setItem("basket", JSON.stringify(basket));
-        }
     }
    
-        else{
+    // si je n'ai pas du tout le même produit, j'ajoute le produit selectionner
+    else{
             basket.push(productModif);
         }
     // }
