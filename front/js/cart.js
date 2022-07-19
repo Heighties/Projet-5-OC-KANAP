@@ -18,9 +18,6 @@ function displayBasket() {
                     document.querySelector("#cart__items").appendChild(productArticle);
                     productArticle.className = "cart__item";
 
-                    // Création des dataset pour faciliter le ciblage de chaque produit dans la page panier
-                    productArticle.setAttribute('data-id', product._id);
-                    productArticle.setAttribute('data-colors', product.colors);
 
                     // Insertion de la div pour l'image
                     let productDivImg = document.createElement("div");
