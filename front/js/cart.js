@@ -4,13 +4,14 @@ let basket = JSON.parse(localStorage.getItem("basket"));
 console.log(basket);
 
 
+
 function displayBasket() {
     if (basket) {
         // Récupération des infos manquantes via l'API
         for (let product of basket) {
             fetch(`http://localhost:3000/api/products/${product._id}`)
                 .then((response) => response.json())
-                .then(function (productApi) {
+                .then(function (productBasket) {
 
                     // Création de la balise article et insertion dans la section
                     let productArticle = document.createElement("article");
@@ -29,8 +30,8 @@ function displayBasket() {
                     // Insertion de l'image
                     let productImg = document.createElement("img");
                     productDivImg.appendChild(productImg);
-                    productImg.src = productApi.imageUrl;
-                    productImg.alt = productApi.altTxt;
+                    productImg.src = productBasket.imageUrl;
+                    productImg.alt = productBasket.altTxt;
 
                     // Insertion de la div pour la description
                     let productItemContent = document.createElement("div");
@@ -45,7 +46,7 @@ function displayBasket() {
                     // Insertion de h2
                     let productTitle = document.createElement("h2");
                     productItemContentDescription.appendChild(productTitle);
-                    productTitle.innerHTML = productApi.name;
+                    productTitle.innerHTML = productBasket.name;
 
                     // Insertion de la couleur
                     let productColor = document.createElement("p");
@@ -55,10 +56,10 @@ function displayBasket() {
                     // Insertion du prix
                     let productPrice = document.createElement("p");
                     productItemContentDescription.appendChild(productPrice);
-                    productPrice.innerHTML = productApi.price + " €";
+                    productPrice.innerHTML = productBasket.price + " €";
 
                     // Création de price et récupération du prix
-                    product.price = productApi.price;
+                    product.price = productBasket.price;
 
                     // Insertion de la div
                     let productItemContentSettings = document.createElement("div");
@@ -96,8 +97,15 @@ function displayBasket() {
                     productDelete.className = "deleteItem";
                     productDelete.innerHTML = "Supprimer";
 
+
                 });
+
+                //Nombre total de produits
                 getNumberProduct();
+                // console.log(getNumberProduct(), getTotalPrice(basket));
+                getTotalPrice(basket);
+        
+
         }
     } else {
         const titleCart = document.querySelector("h1");
@@ -107,3 +115,9 @@ function displayBasket() {
     }
 }
 displayBasket();
+
+
+
+
+
+

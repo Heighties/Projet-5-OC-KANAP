@@ -115,37 +115,25 @@ function removeFromBasket(product){
     saveBasket(basket);
 }
 
-
-//calculer la quantité de produits dans le panier 
-
+// récupérer le nombres total de produits
 function getNumberProduct(){
-    let basket = getBasket();
-    let number = 0;
-    for(let product of basket){
-        number += product.quantity;
+    let quantityBasket = basket.map(x => x.quantity);
+    let getNumberProduct = 0;
+    for (let i = 0; i < quantityBasket.length; i++) {
+        getNumberProduct += parseInt(quantityBasket[i]);
     }
-    return number;
+
+    document.getElementById("totalQuantity").innerHTML = getNumberProduct;
 }
 
 //avoir le prix total du panier
 
-function getTotalPrice(){
-    let basket = getBasket();
-    let total = 0;
-    for(let product of basket){
-        total += product.quantity * product.price;
+function getTotalPrice(basket){
+    let getTotalPrice = 0;
+    for (let i = 0; i < basket.length; i++) {
+        getTotalPrice += parseInt(basket[i].price) * parseInt(basket[i].quantity);
     }
-    return number;
+
+    document.getElementById("totalPrice").innerHTML = getTotalPrice;
 }
 
-
-//récupère bouton ajouter au panier
-// const btnBasket = document.getElementById("addToCart");
-
-//ecoute le btn
-// btnBasket.addEventListener("click", (event)=>{
-//     event.preventDefault();
-//     console.log(product);
-// })
-
-//récupère les valeurs
