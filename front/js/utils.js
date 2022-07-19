@@ -92,7 +92,7 @@ function addBasket(product){
         // Si produit identique déjà dans localstorage
             basket.push(productModif);
             //Ranger les produits par IDs
-            basket.sort((a, b) => (a._id > b._id) ? 1 : -1)
+            basket.sort((a, b) => (a._id > b._id) ? 1 : -1);
             // console.log(basket.sort(product._id));
             localStorage.setItem("basket", JSON.stringify(basket));
     }
@@ -105,13 +105,7 @@ function addBasket(product){
     saveBasket(basket);
 }
 
-// Supprimer un produit
 
-function removeFromBasket(product){
-    let basket = getBasket();
-    basket = basket.filter(p => p._id != product._id);
-    saveBasket(basket);
-}
 
 // Récupérer le nombres total de produits
 function getNumberProduct(){
@@ -135,3 +129,28 @@ function getTotalPrice(basket){
     document.getElementById("totalPrice").innerHTML = getTotalPrice;
 }
 
+// Modification du titre Panier si vide 
+function emptyBasket(){
+    const titleCart = document.querySelector("h1");
+
+        titleCart.innerHTML = "Le panier est vide !";
+        console.log("Le panier est vide");
+        totalQuantity.innerHTML = "0 "
+        totalPrice.innerHTML = "0 "
+}
+
+// Supprimer un produit
+function removeFromBasket(product){
+    let basket = getBasket();
+    basket = basket.filter(p => p._id != product._id);
+    saveBasket(basket);
+
+    if(basket.length === 0){
+        localStorage.clear();
+        window.location.reload();
+    }
+   
+    getNumberProduct();
+    getTotalPrice(basket);
+    window.location.reload();
+}
