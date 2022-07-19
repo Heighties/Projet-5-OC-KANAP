@@ -103,6 +103,7 @@ function displayBasket() {
                 //Nombre total de produits
                 getNumberProduct();
                 // console.log(getNumberProduct(), getTotalPrice(basket));
+                //Prix total
                 getTotalPrice(basket);
         
 
