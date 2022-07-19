@@ -89,10 +89,11 @@ function addBasket(product){
         localStorage.setItem("basket", JSON.stringify(basket));
         console.log(basket);
         
-        //Ranger les produits par IDs
+        
 
         //si produit identique déjà dans localstorage
             basket.push(productModif);
+            //Ranger les produits par IDs
             basket.sort((a, b) => (a._id > b._id) ? 1 : -1)
             // console.log(basket.sort(product._id));
             localStorage.setItem("basket", JSON.stringify(basket));
