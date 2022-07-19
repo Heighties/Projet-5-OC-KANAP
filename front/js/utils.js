@@ -4,18 +4,18 @@ const btnColor = document.getElementById("colors");
 const btnQuantity = document.getElementById("quantity");
 
 
-//Enregistrer le panier dans le local storage
+// Enregistrer le panier dans le local storage
 
 function saveBasket(basket){
-    //Prend objet et transforme en chaine de char (serialization)
+    // Prend objet et transforme en chaine de char (serialization)
     localStorage.setItem("basket", JSON.stringify(basket));
 }
 
-//Récupérer le panier
+// Récupérer le panier
 
 function getBasket(){
     let basket = localStorage.getItem("basket");
-    //Si donnée n'existe pas dans local storage => retourne null (tableau/panier vide)
+    // Si donnée n'existe pas dans local storage => retourne null (tableau/panier vide)
     if(basket == null){
         return [];
     }else{
@@ -24,7 +24,7 @@ function getBasket(){
     }
 }
 
-//Changer la quantité de produit
+// Changer la quantité de produit
 
 function changeQuantity(product,quantity){
     let basket = getBasket();
@@ -39,7 +39,7 @@ function changeQuantity(product,quantity){
     }
 }
 
-//Ajouter un produit au panier
+// Ajouter un produit au panier
 function addBasket(product){
     let basket = getBasket();
     let productModif = Object.assign({}, product, {
@@ -51,7 +51,7 @@ function addBasket(product){
     // Recherche si même produit avec même couleur
     let foundExactlySameProduct = basket.find(p => p._id === productModif._id && p.colors === productModif.colors);
     let foundSameProductColorDiff = basket.find(p => p._id === productModif._id && p.colors !== productModif.colors);
-    //Pour modifier la couleur et la quantité du produit à ajouter au panier
+    // Pour modifier la couleur et la quantité du produit à ajouter au panier
     
     
     // Si je trouve Exactement le même produit je veux modifier sa quantité dans le LS
@@ -60,14 +60,14 @@ function addBasket(product){
         localStorage.setItem("basket", JSON.stringify(basket));
       
 
-        //Si produit EXACTEMENT identique déjà dans localstorage
+        // Si produit EXACTEMENT identique déjà dans localstorage
         
             localStorage.getItem("basket", JSON.stringify(basket));
-            //Quantité du produit déjà ajouté dans le panier
+            // Quantité du produit déjà ajouté dans le panier
             let existProductQuantity = parseInt(foundExactlySameProduct.quantity);
-            //Quantité du produit à ajouter
+            // Quantité du produit à ajouter
             let productModifQuantity = parseInt(btnQuantity.value);
-            //Quantité après ajout
+            // Quantité après ajout
             let newProductQuantity = Object.assign({}, foundExactlySameProduct, {
                 quantity : `${existProductQuantity += productModifQuantity}`
             });
@@ -89,7 +89,7 @@ function addBasket(product){
         
         
 
-        //Si produit identique déjà dans localstorage
+        // Si produit identique déjà dans localstorage
             basket.push(productModif);
             //Ranger les produits par IDs
             basket.sort((a, b) => (a._id > b._id) ? 1 : -1)
@@ -105,7 +105,7 @@ function addBasket(product){
     saveBasket(basket);
 }
 
-//Supprimer un produit
+// Supprimer un produit
 
 function removeFromBasket(product){
     let basket = getBasket();
@@ -124,7 +124,7 @@ function getNumberProduct(){
     document.getElementById("totalQuantity").innerHTML = getNumberProduct;
 }
 
-//Avoir le prix total du panier
+// Avoir le prix total du panier
 
 function getTotalPrice(basket){
     let getTotalPrice = 0;
