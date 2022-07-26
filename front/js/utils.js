@@ -24,20 +24,7 @@ function getBasket(){
     }
 }
 
-// Changer la quantité de produit
 
-function changeQuantity(product,quantity){
-    let basket = getBasket();
-    let foundProduct = basket.find(p => p._id == product._id);
-    if(foundProduct != undefined){
-        foundProduct.quantity += quantity;
-        if(foundProduct.quantity <= 0){
-            removeFromBasket(foundProduct);
-        } else{
-            saveBasket(basket);
-        }
-    }
-}
 
 // Ajouter un produit au panier
 function addBasket(product){
@@ -119,7 +106,6 @@ function getNumberProduct(){
 }
 
 // Avoir le prix total du panier
-
 function getTotalPrice(basket){
     let getTotalPrice = 0;
     for (let i = 0; i < basket.length; i++) {
@@ -133,10 +119,35 @@ function getTotalPrice(basket){
 function emptyBasket(){
     const titleCart = document.querySelector("h1");
 
+    // Change l'affichage de quantité et prix total
         titleCart.innerHTML = "Le panier est vide !";
         console.log("Le panier est vide");
         totalQuantity.innerHTML = "0 "
         totalPrice.innerHTML = "0 "
+}
+
+// Changer la quantité de produit
+function changeQuantity(){
+    const itemToChangeQuantity = document.getElementsByClassName("cart__item");
+    for (let i = 0; i < itemToChangeQuantity.length; i++) {
+        let buttonChangeQuantity = itemToChangeQuantity[i].getElementsByClassName("itemQuantity");
+        buttonChangeQuantity[0].addEventListener('change', function (event) {
+            basket[i].quantity = parseInt(event.target.value);
+
+            if (buttonChangeQuantity[0].value <= 100 && buttonChangeQuantity[0].value >= 1) {
+                localStorage.setItem("basket", JSON.stringify(basket));
+            } else {
+                alert("La quantitée du produit doit être comprise entre 1 et 100.");
+                buttonChangeQuantity[0].value = 1;
+                basket[i].quantity = 1;
+                localStorage.setItem("basket", JSON.stringify(basket));
+            }
+            // Change l'affichage de quantité et prix total
+            getNumberProduct();
+            getTotalPrice(basket);
+            // window.location.reload();
+        })
+    }
 }
 
 // Supprimer un produit
@@ -150,6 +161,7 @@ function removeFromBasket(product){
         window.location.reload();
     }
    
+    // Change l'affichage de quantité et prix total
     getNumberProduct();
     getTotalPrice(basket);
     window.location.reload();

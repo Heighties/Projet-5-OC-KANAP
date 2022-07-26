@@ -6,14 +6,6 @@
     // console.log(product);
     hydrateProduct(product);
     
-    //input choisir quantité produit
-
-    // const btnQuantity = document.getElementById("quantity");
-
-    // const btnColor = document.getElementById("colors");
-
-    //bouton ajouté au panier
-
     const btnBasket = document.getElementById("addToCart");
     //fenêtre pop up de confirmation
     // const popupConfirmation = () => {
@@ -48,13 +40,6 @@
             alert("Renseignez une couleur et/ou une quantité");
         }
     });
-//ecoute le btn
-// btnBasket.addEventListener("click", (event)=>{
-    
-//     event.preventDefault();
-//     console.log(product);
-//     basket.add(product);
-// })
 })()
 
 function getProductId(){

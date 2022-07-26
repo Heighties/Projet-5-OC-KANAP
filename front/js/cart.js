@@ -116,6 +116,7 @@ function displayBasket() {
 
                 // });
 
+                changeQuantity();
                 // Nombre total de produits
                 getNumberProduct();
                 // console.log(getNumberProduct(), getTotalPrice(basket));
