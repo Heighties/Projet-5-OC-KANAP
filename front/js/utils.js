@@ -6,21 +6,22 @@ const btnQuantity = document.getElementById("quantity");
 
 // Enregistrer le panier dans le local storage
 
-function saveBasket(basket){
+function saveBasket(newBasket){
     // Prend objet et transforme en chaine de char (serialization)
-    localStorage.setItem("basket", JSON.stringify(basket));
+    localStorage.setItem("basket", JSON.stringify(newBasket));
+    basket = JSON.parse(localStorage.getItem("basket"));
 }
 
 // Récupérer le panier
 
 function getBasket(){
-    let basket = localStorage.getItem("basket");
+    // let basket = localStorage.getItem("basket");
     // Si donnée n'existe pas dans local storage => retourne null (tableau/panier vide)
-    if(basket == null){
+    if(localStorage.getItem("basket") == null){
         return [];
     }else{
         // Prend chaine de char et transforme en objet/tableau/donnée...
-        return JSON.parse(basket);
+        return JSON.parse(localStorage.getItem("basket"));
     }
 }
 
@@ -106,10 +107,11 @@ function getNumberProduct(){
 }
 
 // Avoir le prix total du panier
-function getTotalPrice(basket){
+function getTotalPrice(){
+    let cart = getBasket();
     let getTotalPrice = 0;
-    for (let i = 0; i < basket.length; i++) {
-        getTotalPrice += parseInt(basket[i].price) * parseInt(basket[i].quantity);
+    for (let i = 0; i < cart.length; i++) {
+        getTotalPrice += parseInt(cart[i].price) * parseInt(cart[i].quantity);
     }
 
     document.getElementById("totalPrice").innerHTML = getTotalPrice;
@@ -127,42 +129,48 @@ function emptyBasket(){
 }
 
 // Changer la quantité de produit
-function changeQuantity(){
-    const itemToChangeQuantity = document.getElementsByClassName("cart__item");
-    for (let i = 0; i < itemToChangeQuantity.length; i++) {
-        let buttonChangeQuantity = itemToChangeQuantity[i].getElementsByClassName("itemQuantity");
-        buttonChangeQuantity[0].addEventListener('change', function (event) {
-            basket[i].quantity = parseInt(event.target.value);
+function changeQuantity(quantity, index){
+    const cart = getBasket();
+    // const itemToChangeQuantity = document.getElementsByClassName("cart__item");
+    let total = 0;
 
-            if (buttonChangeQuantity[0].value <= 100 && buttonChangeQuantity[0].value >= 1) {
-                localStorage.setItem("basket", JSON.stringify(basket));
-            } else {
-                alert("La quantitée du produit doit être comprise entre 1 et 100.");
-                buttonChangeQuantity[0].value = 1;
-                basket[i].quantity = 1;
-                localStorage.setItem("basket", JSON.stringify(basket));
-            }
-            // Change l'affichage de quantité et prix total
-            getNumberProduct();
-            getTotalPrice(basket);
-            // window.location.reload();
-        })
+    for (let i = 0; i < cart.length; i++) {
+        const product = cart[i];
+        if( i === index){
+            cart[i].quantity = quantity;
+        }
     }
+    saveBasket(cart);
+    getNumberProduct();
+    getTotalPrice();
 }
 
 // Supprimer un produit
 function removeFromBasket(product){
     let basket = getBasket();
-    basket = basket.filter(p => p._id != product._id);
+    // Si même id qu'un autre produit mais une couleur !==, supprimer seulement le produit selec
+    basket = basket.filter(function(p){
+        if(p._id !== product._id){
+            return(p);
+        }
+        else{
+            if(p.colors !== product.colors){
+                return(p);
+            }
+        }        
+    })
     saveBasket(basket);
 
     if(basket.length === 0){
         localStorage.clear();
-        window.location.reload();
+        // window.location.reload();
     }
-   
+
+
     // Change l'affichage de quantité et prix total
     getNumberProduct();
     getTotalPrice(basket);
-    window.location.reload();
+    // window.location.reload();
 }
+
+// basket = basket.filter(p => p._id !== product._id);
