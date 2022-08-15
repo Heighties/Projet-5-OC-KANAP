@@ -133,7 +133,7 @@ displayBasket();
 
 // ****************** FORMULAIRE ******************//
 
-//Validation + envoie de commande 
+// Validation + envoie de commande 
 
 function checkForm(form){
     // Création Regex
@@ -141,7 +141,51 @@ function checkForm(form){
     let adressRegex = new RegExp("^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+");
     let cityRegex = new RegExp("^[a-zA-Z-Zàâäéèêëïîôöùûüç ,.'-]+$");
     let namesRegex = new RegExp("^[a-zA-Z-Zàâäéèêëïîôöùûüç ,.'-]+$");
-}
+
+    // Mise à zéro des messages d'erreurs 
+    document.getElementById('firstNameErrorMsg').innerText = "";
+    document.getElementById('lastNameErrorMsg').innerText = "";
+    document.getElementById('addressErrorMsg').innerText = "";
+    document.getElementById('cityErrorMsg').innerText = "";
+    document.getElementById('emailErrorMsg').innerText = "";
+
+    // Vérification Regex => sinon message d'erreur
+    let validFirstName = form.firstName;
+    if (!namesRegex.test(validFirstName)) {
+        let firstNameErrorMsg = document.getElementById('firstNameErrorMsg');
+        firstNameErrorMsg.innerText = "Veuillez renseigner un prénom valide";
+        return false;
+    }
+
+    let validLastName = form.lastName;
+    if (!namesRegex.test(validLastName)) {
+        let firstNameErrorMsg = document.getElementById('lastNameErrorMsg');
+        firstNameErrorMsg.innerText = "Veuillez renseigner un nom valide";
+        return false;
+    }
+    let validAddress = form.address;
+    if (!adressRegex.test(validAddress)) {
+        let firstNameErrorMsg = document.getElementById('addressErrorMsg');
+        firstNameErrorMsg.innerText = "Veuillez renseigner une adresse valide";
+        return false;
+    }
+
+    let validCity = form.city;
+    if (!cityRegex.test(validCity)) {
+        let firstNameErrorMsg = document.getElementById('cityErrorMsg');
+        firstNameErrorMsg.innerText = "Veuillez renseigner une ville valide";
+        return false;
+    }
+    let validEmail = form.email;
+    if (!emailRegex.test(validEmail)) {
+        let firstNameErrorMsg = document.getElementById('emailErrorMsg');
+        firstNameErrorMsg.innerText = "Veuillez renseigner une adresse mail valide";
+        return false;
+    } else {
+        // Si tous les inputs sont correctement remplis la fonction retourne true
+        return true;
+    }
+};
 
 
 
