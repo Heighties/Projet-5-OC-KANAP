@@ -1,4 +1,3 @@
-
 // function fillMe() {
 //     const filler = [{"colors":"Green","_id":"055743915a544fde83cfdfc904935ee7","name":"Kanap Calycé","price":3199,"imageUrl":"http://localhost:3000/images/kanap03.jpeg","description":"Pellentesque fermentum arcu venenatis ex sagittis accumsan. Vivamus lacinia fermentum tortor.Mauris imperdiet tellus ante.","altTxt":"Photo d'un canapé d'angle, vert, trois places","quantity":"4"},{"colors":"Red","_id":"055743915a544fde83cfdfc904935ee7","name":"Kanap Calycé","price":3199,"imageUrl":"http://localhost:3000/images/kanap03.jpeg","description":"Pellentesque fermentum arcu venenatis ex sagittis accumsan. Vivamus lacinia fermentum tortor.Mauris imperdiet tellus ante.","altTxt":"Photo d'un canapé d'angle, vert, trois places","quantity":"3"},{"colors":"Black","_id":"107fb5b75607497b96722bda5b504926","name":"Kanap Sinopé","price":1849,"imageUrl":"http://localhost:3000/images/kanap01.jpeg","description":"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.","altTxt":"Photo d'un canapé bleu, deux places","quantity":"2"},{"colors":"Blue","_id":"107fb5b75607497b96722bda5b504926","name":"Kanap Sinopé","price":1849,"imageUrl":"http://localhost:3000/images/kanap01.jpeg","description":"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.","altTxt":"Photo d'un canapé bleu, deux places","quantity":"2"},{"colors":"White","_id":"107fb5b75607497b96722bda5b504926","name":"Kanap Sinopé","price":1849,"imageUrl":"http://localhost:3000/images/kanap01.jpeg","description":"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.","altTxt":"Photo d'un canapé bleu, deux places","quantity":"5"},{"colors":"White","_id":"a557292fe5814ea2b15c6ef4bd73ed83","name":"Kanap Autonoé","price":1499,"imageUrl":"http://localhost:3000/images/kanap04.jpeg","description":"Donec mattis nisl tortor, nec blandit sapien fermentum at. Proin hendrerit efficitur fringilla. Lorem ipsum dolor sit amet.","altTxt":"Photo d'un canapé rose, une à deux place","quantity":"5"}]
 //     window.localStorage.setItem('basket', JSON.stringify(filler))
@@ -15,107 +14,107 @@ let basket = JSON.parse(localStorage.getItem("basket"));
 console.log(basket);
 
 
-
+// Affichage du panier
 function displayBasket() {
     if (basket) {
         // Récupération des infos manquantes via l'API
         for (let i = 0; i < basket.length; i++) {
             const product = basket[i];
           
-                    // Création de la balise article et insertion dans la section
-                    let productArticle = document.createElement("article");
-                    document.querySelector("#cart__items").appendChild(productArticle);
-                    productArticle.className = "cart__item";
+            // Création de la balise article et insertion dans la section
+            let productArticle = document.createElement("article");
+            document.querySelector("#cart__items").appendChild(productArticle);
+            productArticle.className = "cart__item";
 
 
-                    // Insertion de la div pour l'image
-                    let productDivImg = document.createElement("div");
-                    productArticle.appendChild(productDivImg);
-                    productDivImg.className = "cart__item__img";
+            // Insertion de la div pour l'image
+            let productDivImg = document.createElement("div");
+            productArticle.appendChild(productDivImg);
+            productDivImg.className = "cart__item__img";
 
-                    // Insertion de l'image
-                    let productImg = document.createElement("img");
-                    productDivImg.appendChild(productImg);
-                    productImg.src = product.imageUrl;
-                    productImg.alt = product.altTxt;
+            // Insertion de l'image
+            let productImg = document.createElement("img");
+            productDivImg.appendChild(productImg);
+            productImg.src = product.imageUrl;
+            productImg.alt = product.altTxt;
 
-                    // Insertion de la div pour la description
-                    let productItemContent = document.createElement("div");
-                    productArticle.appendChild(productItemContent);
-                    productItemContent.className = "cart__item__content";
+            // Insertion de la div pour la description
+            let productItemContent = document.createElement("div");
+            productArticle.appendChild(productItemContent);
+            productItemContent.className = "cart__item__content";
 
-                    // Insertion de l'élément div
-                    let productItemContentDescription = document.createElement("div");
-                    productItemContent.appendChild(productItemContentDescription);
-                    productItemContentDescription.className = "cart__item__content__description";
+            // Insertion de l'élément div
+            let productItemContentDescription = document.createElement("div");
+            productItemContent.appendChild(productItemContentDescription);
+            productItemContentDescription.className = "cart__item__content__description";
 
-                    // Insertion de h2
-                    let productTitle = document.createElement("h2");
-                    productItemContentDescription.appendChild(productTitle);
-                    productTitle.innerHTML = product.name;
+            // Insertion de h2
+            let productTitle = document.createElement("h2");
+            productItemContentDescription.appendChild(productTitle);
+            productTitle.innerHTML = product.name;
 
-                    // Insertion de la couleur
-                    let productColor = document.createElement("p");
-                    productItemContentDescription.appendChild(productColor);
-                    productColor.innerHTML = product.colors;
+            // Insertion de la couleur
+            let productColor = document.createElement("p");
+            productItemContentDescription.appendChild(productColor);
+            productColor.innerHTML = product.colors;
 
-                    // Insertion du prix
-                    let productPrice = document.createElement("p");
-                    productItemContentDescription.appendChild(productPrice);
-                    productPrice.innerHTML = product.price + " €";
+            // Insertion du prix
+            let productPrice = document.createElement("p");
+            productItemContentDescription.appendChild(productPrice);
+            productPrice.innerHTML = product.price + " €";
 
-                    // Création de price et récupération du prix
-                    product.price = product.price;
+            // Création de price et récupération du prix
+            product.price = product.price;
 
-                    // Insertion de la div
-                    let productItemContentSettings = document.createElement("div");
-                    productItemContent.appendChild(productItemContentSettings);
-                    productItemContentSettings.className = "cart__item__content__settings";
+            // Insertion de la div
+            let productItemContentSettings = document.createElement("div");
+            productItemContent.appendChild(productItemContentSettings);
+            productItemContentSettings.className = "cart__item__content__settings";
 
-                    // Insertion de la div
-                    let productItemContentSettingsQuantity = document.createElement("div");
-                    productItemContentSettings.appendChild(productItemContentSettingsQuantity);
-                    productItemContentSettingsQuantity.className = "cart__item__content__settings__quantity";
+            // Insertion de la div
+            let productItemContentSettingsQuantity = document.createElement("div");
+            productItemContentSettings.appendChild(productItemContentSettingsQuantity);
+            productItemContentSettingsQuantity.className = "cart__item__content__settings__quantity";
 
-                    // Insertion de Qté 
-                    let productQty = document.createElement("p");
-                    productItemContentSettingsQuantity.appendChild(productQty);
-                    productQty.innerHTML = "Qté : ";
+            // Insertion de Qté 
+            let productQty = document.createElement("p");
+            productItemContentSettingsQuantity.appendChild(productQty);
+            productQty.innerHTML = "Qté : ";
 
-                    // Insertion de la quantité
-                    let productQuantity = document.createElement("input");
-                    productItemContentSettingsQuantity.appendChild(productQuantity);
-                    productQuantity.value = product.quantity;
-                    productQuantity.className = "itemQuantity";
-                    productQuantity.setAttribute("type", "number");
-                    productQuantity.setAttribute("min", "1");
-                    productQuantity.setAttribute("max", "100");
-                    productQuantity.setAttribute("name", "itemQuantity");
-                    productQuantity.addEventListener("click", (e) =>{
-                        changeQuantity(e.target.value, i);
-                    })
+            // Insertion de la quantité
+            let productQuantity = document.createElement("input");
+            productItemContentSettingsQuantity.appendChild(productQuantity);
+            productQuantity.value = product.quantity;
+            productQuantity.className = "itemQuantity";
+            productQuantity.setAttribute("type", "number");
+            productQuantity.setAttribute("min", "1");
+            productQuantity.setAttribute("max", "100");
+            productQuantity.setAttribute("name", "itemQuantity");
+            productQuantity.addEventListener("click", (e) =>{
+                changeQuantity(e.target.value, i);
+            })
 
-                    // Insertion de la div
-                    let productItemContentSettingsDelete = document.createElement("div");
-                    productItemContentSettings.appendChild(productItemContentSettingsDelete);
-                    productItemContentSettingsDelete.className = "cart__item__content__settings__delete";
+            // Insertion de la div
+            let productItemContentSettingsDelete = document.createElement("div");
+            productItemContentSettings.appendChild(productItemContentSettingsDelete);
+            productItemContentSettingsDelete.className = "cart__item__content__settings__delete";
 
-                    // Insertion de supprimer
-                    let productDelete = document.createElement("p");
-                    productItemContentSettingsDelete.appendChild(productDelete);
-                    productDelete.className = "deleteItem";
-                    productDelete.innerHTML = "Supprimer";
-                    productDelete.addEventListener("click", (e) =>{
-                        console.log(product);
-                        removeFromBasket(product);
-                        productArticle.remove();
-                    })
-                    
+            // Insertion de supprimer
+            let productDelete = document.createElement("p");
+            productItemContentSettingsDelete.appendChild(productDelete);
+            productDelete.className = "deleteItem";
+            productDelete.innerHTML = "Supprimer";
+            productDelete.addEventListener("click", (e) =>{
+                console.log(product);
+                removeFromBasket(product);
+                productArticle.remove();
+            })
+                
 
-                // Nombre total de produits
-                getNumberProduct();
-                // Prix total
-                getTotalPrice(basket);
+            // Nombre total de produits
+            getNumberProduct();
+            // Prix total
+            getTotalPrice(basket);
         
 
         }
@@ -133,16 +132,16 @@ displayBasket();
 function checkForm(form){
     // Création Regex
     let emailRegex = new RegExp("[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+");
-    let adressRegex = new RegExp("^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+");
+    let adressRegex = new RegExp("^[0-9]{1,4}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+");
     let cityRegex = new RegExp("^[a-zA-Z-Zàâäéèêëïîôöùûüç ,.'-]+$");
     let namesRegex = new RegExp("^[a-zA-Z-Zàâäéèêëïîôöùûüç ,.'-]+$");
 
     // Mise à zéro des messages d'erreurs 
-    document.getElementById('firstNameErrorMsg').innerText = "";
-    document.getElementById('lastNameErrorMsg').innerText = "";
-    document.getElementById('addressErrorMsg').innerText = "";
-    document.getElementById('cityErrorMsg').innerText = "";
-    document.getElementById('emailErrorMsg').innerText = "";
+    document.getElementById('firstNameErrorMsg').innerHTML = "";
+    document.getElementById('lastNameErrorMsg').innerHTML = "";
+    document.getElementById('addressErrorMsg').innerHTML = "";
+    document.getElementById('cityErrorMsg').innerHTML = "";
+    document.getElementById('emailErrorMsg').innerHTML = "";
 
     // Vérification Regex => sinon message d'erreur
     let validFirstName = form.firstName;
@@ -185,6 +184,7 @@ function checkForm(form){
 // Fonction pour récupérer le formulaire et rediriger vers la page contact
 function postForm() {
     const order = document.getElementById("order");
+    // Envoi du formulaire si bien rempli + panier rempli, sinon : message d'erreur
     order.addEventListener("click", (e) => {
         e.preventDefault();
 
@@ -198,6 +198,7 @@ function postForm() {
         }
         // Vérification du formulaire 
         if (checkForm(contact)) {
+            console.log(basket);
             // Vérification du panier 
             if (basket == null) {
                 alert("Votre panier est vide")
@@ -206,7 +207,7 @@ function postForm() {
                 // Création tableau pour ajouter tous les id du panier 
                 let products = [];
                 for (let i = 0; i < basket.length; i++) {
-                    products.push(basket[i].id);
+                    products.push(basket[i]._id);
                 }
                 console.log(products);
 
@@ -228,6 +229,7 @@ postForm()
 
 // Fonction qui redirige vers la page de confirmation
 function sendPost(sendFormData) {
+    console.log(sendFormData)
     const post = {
         method: "POST",
         headers: {
@@ -244,7 +246,7 @@ function sendPost(sendFormData) {
             console.log(data);
             localStorage.setItem("orderId", data.orderId);
 
-            document.location.href = "confirmation.html?id=" + data.orderId;
+            // document.location.href = "confirmation.html?id=" + data.orderId;
         })
         .catch((err) => {
             alert("Oups, le serveur rencontre un problème." + err.message);

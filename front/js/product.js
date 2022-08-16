@@ -1,4 +1,3 @@
-
 (async function() {
     const productId = getProductId();
     console.log(productId);
@@ -26,7 +25,15 @@
 })()
 
 function getProductId(){
-    return new URL(location.href).searchParams.get("id");
+    const id = new URL(location.href).searchParams.get("id");
+    // Si ID non défini renvoyer vers page d'accueil 
+    if( id === null){
+        window.location.href = "./index.html"}
+
+        // Sinon afficher la page produit
+    else{
+        return id;
+    }
 }
 
 function getProduct(productId){
