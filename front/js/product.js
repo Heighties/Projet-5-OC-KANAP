@@ -3,23 +3,10 @@
     const productId = getProductId();
     console.log(productId);
     const product = await getProduct(productId);
-    // console.log(product);
     hydrateProduct(product);
     
     const btnBasket = document.getElementById("addToCart");
-    //fenêtre pop up de confirmation
-    // const popupConfirmation = () => {
-    //     if(window.confirm(`${product.name} a été ajouté au panier.
-    //     Consulter le panier : OK 
-    //     ou revenir à l'accueil : ANNULER`)){
-    // window.location.href = "./cart.html"
-    //     }
-    //     else{
-    //         window.location.href = "./index.html"
-    //     }
-    // }
-    
-    
+ 
     function showMsg(){
         console.log(product);
     }
@@ -29,11 +16,7 @@
     btnBasket.addEventListener("click", function(e){
         // je récupère valeur input 
         if(btnQuantity.value > 0 && btnColor.value !== undefined && btnColor.value !== null && btnColor.value !== ""){
-            addBasket(product);
-            // console.log(btnColor.value);
-
-            //Option fenêtre pop up :
-            // popupConfirmation();    
+            addBasket(product); 
         }
         else{
             console.error(btnQuantity.value, btnColor.value);
@@ -66,7 +49,7 @@ function hydrateProduct(product){
         document.getElementById("title").textContent = product.name;
     
     const colors = product.colors;
-    // console.log(colors);
+
 
     for (let i = 0; i < colors.length; i++){
         option = document.createElement('option');
@@ -78,5 +61,3 @@ function hydrateProduct(product){
     
 }
 
-
-//stocker produit ajouté dans le local storage

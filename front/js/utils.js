@@ -174,3 +174,6 @@ function removeFromBasket(product){
 }
 
 // basket = basket.filter(p => p._id !== product._id);
+
+
+
