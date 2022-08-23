@@ -1,15 +1,14 @@
 // Fonction asynchrone pour ajouter produit et ses caractéristiques au localStorage
 (async function() {
     const productId = getProductId();
-    console.log(productId);
     const product = await getProduct(productId);
     hydrateProduct(product);
-    
     const btnBasket = document.getElementById("addToCart");
  
     // Ecoute le bouton "ajouter au panier"
     btnBasket.addEventListener("click", function(e){
-        // Récupération de la valeur input 
+
+        // Ajout du produit dans le localStorage si valeur de l'input est non nulle
         if(btnQuantity.value > 0 && btnColor.value !== undefined && btnColor.value !== null && btnColor.value !== ""){
             addBasket(product); 
         }
@@ -20,7 +19,7 @@
     });
 })()
 
-// Récupération du produit
+// Récupération de l'ID du produit
 function getProductId(){
     const id = new URL(location.href).searchParams.get("id");
     // Si ID non défini renvoyer vers page d'accueil 
@@ -32,7 +31,7 @@ function getProductId(){
     }
 }
 
-// Récupération du produit, indentation de l'id dans l'URL
+// Récupération du produit depuis l'API
 function getProduct(productId){
     return fetch(`http://localhost:3000/api/products/${productId}`).then(function(res){
         if(res.ok){
