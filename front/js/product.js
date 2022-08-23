@@ -1,3 +1,4 @@
+// Fonction asynchrone pour ajouter produit et ses caractéristiques au localStorage
 (async function() {
     const productId = getProductId();
     console.log(productId);
