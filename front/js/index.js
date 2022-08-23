@@ -1,9 +1,11 @@
+       // Récupérer les données de l'API
        fetch(`http://localhost:3000/api/products`).then(function(res){
         if(res.ok){
             return res.json();
         }
         console.log(res);
     })
+    // Création des éléments et affichage des produits
     .then(function(datas){
         datas.forEach(product =>{
             let prdUrl = "./product.html";

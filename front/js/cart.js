@@ -1,14 +1,3 @@
-// function fillMe() {
-//     const filler = [{"colors":"Green","_id":"055743915a544fde83cfdfc904935ee7","name":"Kanap Calycé","price":3199,"imageUrl":"http://localhost:3000/images/kanap03.jpeg","description":"Pellentesque fermentum arcu venenatis ex sagittis accumsan. Vivamus lacinia fermentum tortor.Mauris imperdiet tellus ante.","altTxt":"Photo d'un canapé d'angle, vert, trois places","quantity":"4"},{"colors":"Red","_id":"055743915a544fde83cfdfc904935ee7","name":"Kanap Calycé","price":3199,"imageUrl":"http://localhost:3000/images/kanap03.jpeg","description":"Pellentesque fermentum arcu venenatis ex sagittis accumsan. Vivamus lacinia fermentum tortor.Mauris imperdiet tellus ante.","altTxt":"Photo d'un canapé d'angle, vert, trois places","quantity":"3"},{"colors":"Black","_id":"107fb5b75607497b96722bda5b504926","name":"Kanap Sinopé","price":1849,"imageUrl":"http://localhost:3000/images/kanap01.jpeg","description":"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.","altTxt":"Photo d'un canapé bleu, deux places","quantity":"2"},{"colors":"Blue","_id":"107fb5b75607497b96722bda5b504926","name":"Kanap Sinopé","price":1849,"imageUrl":"http://localhost:3000/images/kanap01.jpeg","description":"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.","altTxt":"Photo d'un canapé bleu, deux places","quantity":"2"},{"colors":"White","_id":"107fb5b75607497b96722bda5b504926","name":"Kanap Sinopé","price":1849,"imageUrl":"http://localhost:3000/images/kanap01.jpeg","description":"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.","altTxt":"Photo d'un canapé bleu, deux places","quantity":"5"},{"colors":"White","_id":"a557292fe5814ea2b15c6ef4bd73ed83","name":"Kanap Autonoé","price":1499,"imageUrl":"http://localhost:3000/images/kanap04.jpeg","description":"Donec mattis nisl tortor, nec blandit sapien fermentum at. Proin hendrerit efficitur fringilla. Lorem ipsum dolor sit amet.","altTxt":"Photo d'un canapé rose, une à deux place","quantity":"5"}]
-//     window.localStorage.setItem('basket', JSON.stringify(filler))
-// }
-
-// const fillerBtn = document.createElement('button')
-// fillerBtn.textContent = 'remplis moi ce panier'
-// fillerBtn.addEventListener('click', fillMe())
-// document.querySelector('.cart').appendChild(fillerBtn)
-
-
 // Récupération du localstorage
 let basket = JSON.parse(localStorage.getItem("basket"));
 console.log(basket);
@@ -110,13 +99,10 @@ function displayBasket() {
                 productArticle.remove();
             })
                 
-
             // Nombre total de produits
             getNumberProduct();
             // Prix total
             getTotalPrice(basket);
-        
-
         }
     } else {
         emptyBasket();
@@ -245,8 +231,6 @@ function sendPost(sendFormData) {
         .then(data => {
             console.log(data);
             localStorage.setItem("orderId", data.orderId);
-
-            // document.location.href = "confirmation.html?id=" + data.orderId;
         })
         .catch((err) => {
             alert("Oups, le serveur rencontre un problème." + err.message);

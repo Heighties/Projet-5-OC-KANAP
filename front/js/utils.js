@@ -5,17 +5,14 @@ const btnQuantity = document.getElementById("quantity");
 
 
 // Enregistrer le panier dans le local storage
-
 function saveBasket(newBasket){
     // Prend objet et transforme en chaine de char (serialization)
     localStorage.setItem("basket", JSON.stringify(newBasket));
     basket = JSON.parse(localStorage.getItem("basket"));
 }
 
-// Récupérer le panier
-
+// Récupérer le panier du localStorage
 function getBasket(){
-    // let basket = localStorage.getItem("basket");
     // Si donnée n'existe pas dans local storage => retourne null (tableau/panier vide)
     if(localStorage.getItem("basket") == null){
         return [];
@@ -24,8 +21,6 @@ function getBasket(){
         return JSON.parse(localStorage.getItem("basket"));
     }
 }
-
-
 
 // Ajouter un produit au panier
 function addBasket(product){
@@ -44,12 +39,9 @@ function addBasket(product){
     
     // Si je trouve Exactement le même produit je veux modifier sa quantité dans le LS
     if(foundExactlySameProduct !== undefined){
-        // basket.push(productModif);
         localStorage.setItem("basket", JSON.stringify(basket));
-      
 
         // Si produit EXACTEMENT identique déjà dans localstorage
-        
             localStorage.getItem("basket", JSON.stringify(basket));
             // Quantité du produit déjà ajouté dans le panier
             let existProductQuantity = parseInt(foundExactlySameProduct.quantity);
@@ -65,7 +57,6 @@ function addBasket(product){
                     products.quantity = newProductQuantity.quantity;
                 }
             }
-            
             localStorage.setItem("basket", JSON.stringify(basket));
             console.log(newProductQuantity); 
     }
@@ -93,8 +84,6 @@ function addBasket(product){
     saveBasket(basket);
 }
 
-
-
 // Récupérer le nombres total de produits
 function getNumberProduct(){
     let quantityBasket = basket.map(x => x.quantity);
@@ -102,7 +91,6 @@ function getNumberProduct(){
     for (let i = 0; i < quantityBasket.length; i++) {
         getNumberProduct += parseInt(quantityBasket[i]);
     }
-
     document.getElementById("totalQuantity").innerHTML = getNumberProduct;
 }
 
@@ -113,7 +101,6 @@ function getTotalPrice(){
     for (let i = 0; i < cart.length; i++) {
         getTotalPrice += parseInt(cart[i].price) * parseInt(cart[i].quantity);
     }
-
     document.getElementById("totalPrice").innerHTML = getTotalPrice;
 }
 
@@ -122,8 +109,7 @@ function emptyBasket(){
     const titleCart = document.querySelector("h1");
 
     // Change l'affichage de quantité et prix total
-        titleCart.innerHTML = "Le panier est vide !";
-        console.log("Le panier est vide");
+        titleCart.innerHTML = "Le panier est vide";
         totalQuantity.innerHTML = "0 "
         totalPrice.innerHTML = "0 "
 }
@@ -163,17 +149,14 @@ function removeFromBasket(product){
 
     if(basket.length === 0){
         localStorage.clear();
-        // window.location.reload();
     }
 
 
     // Change l'affichage de quantité et prix total
     getNumberProduct();
     getTotalPrice(basket);
-    // window.location.reload();
 }
 
-// basket = basket.filter(p => p._id !== product._id);
 
 
 

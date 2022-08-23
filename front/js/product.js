@@ -6,14 +6,9 @@
     
     const btnBasket = document.getElementById("addToCart");
  
-    function showMsg(){
-        console.log(product);
-    }
-
-    //ecoute le bouton "ajouter au panier"
-
+    // Ecoute le bouton "ajouter au panier"
     btnBasket.addEventListener("click", function(e){
-        // je récupère valeur input 
+        // Récupération de la valeur input 
         if(btnQuantity.value > 0 && btnColor.value !== undefined && btnColor.value !== null && btnColor.value !== ""){
             addBasket(product); 
         }
@@ -29,7 +24,6 @@ function getProductId(){
     // Si ID non défini renvoyer vers page d'accueil 
     if( id === null){
         window.location.href = "./index.html"}
-
         // Sinon afficher la page produit
     else{
         return id;
@@ -45,6 +39,7 @@ function getProduct(productId){
 
 }
 
+// Fonction pour ajouter et afficher les caractéristiques du produit
 function hydrateProduct(product){
     const img = document.createElement('img');
         itemImg = document.getElementsByClassName("item__img");
