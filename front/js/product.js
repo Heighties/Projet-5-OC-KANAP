@@ -19,6 +19,7 @@
     });
 })()
 
+// Récupération du produit
 function getProductId(){
     const id = new URL(location.href).searchParams.get("id");
     // Si ID non défini renvoyer vers page d'accueil 
@@ -30,13 +31,13 @@ function getProductId(){
     }
 }
 
+// Récupération du produit, indentation de l'id dans l'URL
 function getProduct(productId){
     return fetch(`http://localhost:3000/api/products/${productId}`).then(function(res){
         if(res.ok){
             return res.json();
         }
     })    
-
 }
 
 // Fonction pour ajouter et afficher les caractéristiques du produit
@@ -59,7 +60,5 @@ function hydrateProduct(product){
         option.value = colors[i];
         document.getElementById('colors').appendChild(option);
     }
-
-    
 }
 
