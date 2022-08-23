@@ -80,7 +80,6 @@ function addBasket(product){
     else{
             basket.push(productModif);
         }
-    // }
     saveBasket(basket);
 }
 
