@@ -41,7 +41,7 @@ function getProduct(productId){
     })    
 }
 
-// Fonction pour ajouter et afficher les caractéristiques du produit
+// Fonction pour ajouter et "afficher" les caractéristiques du produit
 function hydrateProduct(product){
     const img = document.createElement('img');
         itemImg = document.getElementsByClassName("item__img");
