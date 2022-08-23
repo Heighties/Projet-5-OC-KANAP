@@ -114,7 +114,6 @@ displayBasket();
 // ****************** FORMULAIRE ******************//
 
 // Validation + envoie de commande 
-
 function checkForm(form){
     // Création Regex
     let emailRegex = new RegExp("[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+");
