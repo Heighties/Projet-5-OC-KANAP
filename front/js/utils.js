@@ -30,7 +30,6 @@ function addBasket(product){
         quantity: `${btnQuantity.value}`
     });
     // Recherche dans panier s'il y a un id = id du produit à ajouter
-    // let foundProduct = basket.find(p => p._id === productModif._id);
     // Recherche si même produit avec même couleur
     let foundExactlySameProduct = basket.find(p => p._id === productModif._id && p.colors === productModif.colors);
     let foundSameProductColorDiff = basket.find(p => p._id === productModif._id && p.colors !== productModif.colors);
@@ -115,7 +114,7 @@ function changeQuantity(quantity, index){
     // Boucle sur chaque produit du panier
     for (let i = 0; i < cart.length; i++) {
         const product = cart[i];
-        // Si je suis le même produit, j'édite sa quantité
+        // Si je suis sur le même produit, j'édite sa quantité
         if( i === index){
             product.quantity = quantity;
         }

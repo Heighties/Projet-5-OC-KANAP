@@ -230,6 +230,7 @@ function sendPost(sendFormData) {
         .then(data => {
             console.log(data);
             localStorage.setItem("orderId", data.orderId);
+            document.location.href = "confirmation.html?id=" + data.orderId;
         })
         .catch((err) => {
             alert("Oups, le serveur rencontre un problème." + err.message);
