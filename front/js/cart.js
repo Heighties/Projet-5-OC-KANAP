@@ -11,7 +11,6 @@ document.querySelector('.cart').appendChild(fillerBtn)
 // Récupération du localstorage
 let myBasket = JSON.parse(localStorage.getItem("basket"));
 // console.log(myBasket);
-// let myBasket = getBasket();
 
 // Affichage du panier
 function displayBasket() {
@@ -89,9 +88,10 @@ function displayBasket() {
             productQuantity.setAttribute("min", "1");
             productQuantity.setAttribute("max", "100");
             productQuantity.setAttribute("name", "itemQuantity");
-            // productQuantity.addEventListener("click", (e) =>{
-            //     changeQuantity(e.target);
-            // })
+            productQuantity.addEventListener("click", (e) =>{
+                changeQuantity(e.target);
+            
+            })
 
             // Insertion de la div
             let productItemContentSettingsDelete = document.createElement("div");
@@ -110,8 +110,6 @@ function displayBasket() {
             })
                 
             // removeProduct(); 
-            modifyQuantity();
-            
             saveBasket(myBasket);
         }
 
@@ -167,28 +165,28 @@ function emptyBasket(){
     totalPrice.innerHTML = "0 "
 }
 
-// Fonction pour Modifier quantité de l'article
-function modifyQuantity() {
-    const itemToChangeQuantity = document.getElementsByClassName("cart__item");
-    for (let i = 0; i < itemToChangeQuantity.length; i++) {
 
-        let buttonChangeQuantity = itemToChangeQuantity[i].getElementsByClassName("itemQuantity");
-        buttonChangeQuantity[0].addEventListener('change', function (event) {
-            myBasket[i].quantity = parseInt(event.target.value);
-
-            if (buttonChangeQuantity[0].value <= 100 && buttonChangeQuantity[0].value >= 1) {
-                localStorage.setItem("basket", JSON.stringify(myBasket));
-            } else {
-                alert("La quantitée du produit doit être comprise entre 1 et 100.");
-                buttonChangeQuantity[0].value = 1;
-                myBasket[i].quantity = 1;
-                localStorage.setItem("basket", JSON.stringify(myBasket));
-            }
-            getNumberProduct();
-            getTotalPrice();
-            saveBasket(myBasket);
-        })
+// Changer la quantité de produit
+function changeQuantity(element){
+    // Récupération du panier
+    const node = element.closest(".cart__item");
+    const myArray = document.querySelectorAll(".cart__item");
+    const myIndex = Array.prototype.indexOf.call(myArray, node);
+    console.log(node);
+    const value = element.value;
+   
+    // Boucle sur chaque produit du panier
+    for (let i = 0; i <= myBasket.length; i++) {
+        const product = myBasket[i];
+        // Si je suis sur le même produit, j'édite sa quantité
+        if( i === myIndex){
+            product.quantity = value;
+        }
     }
+    // Mise à jour du panier
+    getNumberProduct();
+    getTotalPrice();
+    saveBasket(myBasket);
 }
 
 
@@ -205,16 +203,17 @@ function removeFromBasket(product){
             }
         }        
     })
-    saveBasket(myBasket);
+   
     // Si le panier est vide, je le supprime du locaStorage
     if(myBasket.length === 0){
         localStorage.clear();
     }
 
-    window.location.reload();
+    // window.location.reload();
     // Change l'affichage de quantité et prix total
     getNumberProduct();
     getTotalPrice(myBasket);
+    saveBasket(myBasket);
 }
 
 // ****************** FORMULAIRE ******************//
