@@ -14,11 +14,11 @@ fetch(`http://localhost:3000/api/products`).then(function(res){
         article = document.createElement('article');
         article.classList.add("productCard");
         img = document.createElement('img');
-        img.classList.add("productImage");
+        img.classList.add('productImage');
         h3 = document.createElement('h3');
         h3.classList.add("productName");
         p = document.createElement('p');
-        p.classList.add("productDescription");
+        p.classList.add('productDescription');
 
         items.appendChild(a);
         a.appendChild(article);

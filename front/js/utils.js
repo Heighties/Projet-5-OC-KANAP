@@ -8,7 +8,6 @@ const btnQuantity = document.getElementById("quantity");
 function saveBasket(newBasket){
     // Prendre l'objet et le transforme en chaine de char (serialization)
     localStorage.setItem("basket", JSON.stringify(newBasket));
-    basket = JSON.parse(localStorage.getItem("basket"));
 }
 
 // Récupérer le panier du localStorage
@@ -22,7 +21,7 @@ function getBasket(){
     }
 }
 
-// Ajouter un produit au panier
+// Ajouter un produit au panier ou modifie le produit si même ID et même couleur
 function addBasket(product){
     let basket = getBasket();
     let productModif = Object.assign({}, product, {
@@ -36,7 +35,7 @@ function addBasket(product){
     
     // Si je trouve Exactement le même produit je veux modifier sa quantité dans le LS
     if(foundExactlySameProduct !== undefined){
-    localStorage.setItem("basket", JSON.stringify(basket));
+        localStorage.setItem("basket", JSON.stringify(basket));
 
     // Si produit EXACTEMENT identique déjà dans localstorage
         localStorage.getItem("basket", JSON.stringify(basket));
@@ -72,92 +71,18 @@ function addBasket(product){
     // Si je n'ai pas du tout le même produit, j'ajoute le produit selectionner
     else{
             basket.push(productModif);
-        }
+    }
     saveBasket(basket);
 }
 
-// Récupérer le nombres total de produits
-function getNumberProduct(){
-    let quantityBasket = basket.map(x => x.quantity);
-    let getNumberProduct = 0;
-    for (let i = 0; i < quantityBasket.length; i++) {
-        getNumberProduct += parseInt(quantityBasket[i]);
-    }
-    document.getElementById("totalQuantity").innerHTML = getNumberProduct;
-}
 
-// Avoir le prix total du panier
-function getTotalPrice(){
-    let cart = getBasket();
-    let getTotalPrice = 0;
-    for (let i = 0; i < cart.length; i++) {
-        getTotalPrice += parseInt(cart[i].price) * parseInt(cart[i].quantity);
-    }
-    document.getElementById("totalPrice").innerHTML = getTotalPrice;
-}
-
-// Modification du titre Panier si vide 
-function emptyBasket(){
-    const titleCart = document.querySelector("h1");
-
-    // Change l'affichage de quantité et prix total
-    titleCart.innerHTML = "Le panier est vide";
-    totalQuantity.innerHTML = "0 "
-    totalPrice.innerHTML = "0 "
-}
-
-// Changer la quantité de produit
-function changeQuantity(quantity, index){
-    // Récupération du panier
-    const cart = getBasket();
-
-    // Boucle sur chaque produit du panier
-    for (let i = 0; i < cart.length; i++) {
-        const product = cart[i];
-        // Si je suis sur le même produit, j'édite sa quantité
-        if( i === index){
-            product.quantity = quantity;
-        }
-    }
-
-    // Mise à jour du panier
-    saveBasket(cart);
-    getNumberProduct();
-    getTotalPrice();
-}
-
-// Supprimer un produit
-function removeFromBasket(product){
-    let basket = getBasket();
-    // Si même id qu'un autre produit mais une couleur !==, supprimer seulement le produit selectionné
-    basket = basket.filter(function(p){
-        if(p._id !== product._id){
-            return(p);
-        }
-        else{
-            if(p.colors !== product.colors){
-                return(p);
-            }
-        }        
-    })
-    saveBasket(basket);
-
-    // Si le panier est vide, je le supprime du locaStorage
-    if(basket.length === 0){
-        localStorage.clear();
-    }
-
-
-    // Change l'affichage de quantité et prix total
-    getNumberProduct();
-    getTotalPrice(basket);
-}
 
 //**********************************************//
 
 // Si ID non défini dans l'URL renvoyer vers page d'accueil 
 function redirect(){
     if( id === null){
-        window.location.href = "./index.html"}
+        window.location.href = "./index.html"
     }
+}
 

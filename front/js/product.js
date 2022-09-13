@@ -43,13 +43,13 @@ function getProduct(productId){
 // Fonction pour ajouter et "afficher" les caractéristiques du produit
 function hydrateProduct(product){
     const img = document.createElement('img');
-        itemImg = document.getElementsByClassName("item__img");
+        itemImg = document.getElementsByClassName('item__img');
         itemImg[0].appendChild(img)
         img.src = product.imageUrl;
         img.alt = product.altTxt;
         document.getElementById('price').textContent = product.price;
-        document.getElementById("description").textContent = product.description;
-        document.getElementById("title").textContent = product.name;
+        document.getElementById('description').textContent = product.description;
+        document.getElementById('title').textContent = product.name;
     
     const colors = product.colors;
 

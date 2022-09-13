@@ -1,14 +1,24 @@
-// Récupération du localstorage
-let basket = JSON.parse(localStorage.getItem("basket"));
-console.log(basket);
 
+// function fillMe() {
+//     const filler = [{"colors":"Green","_id":"055743915a544fde83cfdfc904935ee7","name":"Kanap Calycé","price":3199,"imageUrl":"http://localhost:3000/images/kanap03.jpeg","description":"Pellentesque fermentum arcu venenatis ex sagittis accumsan. Vivamus lacinia fermentum tortor.Mauris imperdiet tellus ante.","altTxt":"Photo d'un canapé d'angle, vert, trois places","quantity":"4"},{"colors":"Red","_id":"055743915a544fde83cfdfc904935ee7","name":"Kanap Calycé","price":3199,"imageUrl":"http://localhost:3000/images/kanap03.jpeg","description":"Pellentesque fermentum arcu venenatis ex sagittis accumsan. Vivamus lacinia fermentum tortor.Mauris imperdiet tellus ante.","altTxt":"Photo d'un canapé d'angle, vert, trois places","quantity":"3"},{"colors":"Black","_id":"107fb5b75607497b96722bda5b504926","name":"Kanap Sinopé","price":1849,"imageUrl":"http://localhost:3000/images/kanap01.jpeg","description":"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.","altTxt":"Photo d'un canapé bleu, deux places","quantity":"2"},{"colors":"Blue","_id":"107fb5b75607497b96722bda5b504926","name":"Kanap Sinopé","price":1849,"imageUrl":"http://localhost:3000/images/kanap01.jpeg","description":"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.","altTxt":"Photo d'un canapé bleu, deux places","quantity":"2"},{"colors":"White","_id":"107fb5b75607497b96722bda5b504926","name":"Kanap Sinopé","price":1849,"imageUrl":"http://localhost:3000/images/kanap01.jpeg","description":"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.","altTxt":"Photo d'un canapé bleu, deux places","quantity":"5"},{"colors":"White","_id":"a557292fe5814ea2b15c6ef4bd73ed83","name":"Kanap Autonoé","price":1499,"imageUrl":"http://localhost:3000/images/kanap04.jpeg","description":"Donec mattis nisl tortor, nec blandit sapien fermentum at. Proin hendrerit efficitur fringilla. Lorem ipsum dolor sit amet.","altTxt":"Photo d'un canapé rose, une à deux place","quantity":"5"}]
+//     window.localStorage.setItem('basket', JSON.stringify(filler))
+// }
+// const fillerBtn = document.createElement('button')
+// fillerBtn.textContent = 'remplis moi ce panier'
+// fillerBtn.addEventListener('click', function(){fillMe()})
+// document.querySelector('.cart').appendChild(fillerBtn)
+
+// Récupération du localstorage
+let myBasket = JSON.parse(localStorage.getItem("basket"));
+// console.log(myBasket);
+// let myBasket = getBasket();
 
 // Affichage du panier
 function displayBasket() {
-    if (basket) {
+    if (myBasket) {
         // Récupération des infos manquantes via l'API
-        for (let i = 0; i < basket.length; i++) {
-            const product = basket[i];
+        for (let i = 0; i < myBasket.length; i++) {
+            const product = myBasket[i];
           
             // Création de la balise article et insertion dans la section
             let productArticle = document.createElement("article");
@@ -79,9 +89,9 @@ function displayBasket() {
             productQuantity.setAttribute("min", "1");
             productQuantity.setAttribute("max", "100");
             productQuantity.setAttribute("name", "itemQuantity");
-            productQuantity.addEventListener("click", (e) =>{
-                changeQuantity(e.target.value, i);
-            })
+            // productQuantity.addEventListener("click", (e) =>{
+            //     changeQuantity(e.target);
+            // })
 
             // Insertion de la div
             let productItemContentSettingsDelete = document.createElement("div");
@@ -93,22 +103,123 @@ function displayBasket() {
             productItemContentSettingsDelete.appendChild(productDelete);
             productDelete.className = "deleteItem";
             productDelete.innerHTML = "Supprimer";
-            productDelete.addEventListener("click", (e) =>{
-                console.log(product);
-                removeFromBasket(product);
-                productArticle.remove();
-            })
+            // productDelete.addEventListener("click", (e) =>{
+            //     console.log(product);
+            //     removeFromBasket(product);
+            //     productArticle.remove();
+            // })
                 
+           removeProduct(); 
+           modifyQuantity();
             // Nombre total de produits
-            getNumberProduct();
+            getNumberProduct(myBasket);
             // Prix total
-            getTotalPrice(basket);
+            getTotalPrice(myBasket);
+            saveBasket(myBasket);
         }
     } else {
         emptyBasket();
     }
 }
 displayBasket();
+
+// *********************** utils.js ****************************//
+
+// Récupérer le nombres total de produits
+function getNumberProduct(){
+    // console.log(basket, JSON.parse(localStorage.getItem("basket")));
+    let quantityBasket = myBasket.map(x => x.quantity);
+    let getNumberProduct = 0;
+    for (let i = 0; i < quantityBasket.length; i++) {
+        getNumberProduct += parseInt(quantityBasket[i]);
+    }
+    document.getElementById("totalQuantity").innerHTML = getNumberProduct;
+    
+}
+
+// Avoir le prix total du panier
+// function getTotalPrice(){
+//     let cart = getBasket();
+//     let getTotalPrice = 0;
+//     for (let i = 0; i < cart.length; i++) {
+//         getTotalPrice += parseInt(cart[i].price) * parseInt(cart[i].quantity);
+//     }
+//     document.getElementById("totalPrice").innerHTML = getTotalPrice;
+// }
+function getTotalPrice() {
+    let getTotalPrice = 0;
+    for (let i = 0; i < myBasket.length; i++) {
+        getTotalPrice += parseInt(myBasket[i].price) * parseInt(myBasket[i].quantity);
+    }
+
+    document.getElementById("totalPrice").innerHTML = getTotalPrice;
+}
+
+// Modification du titre Panier si vide 
+function emptyBasket(){
+    const titleCart = document.querySelector("h1");
+
+    // Change l'affichage de quantité et prix total
+    titleCart.innerHTML = "Le panier est vide";
+    totalQuantity.innerHTML = "0 "
+    totalPrice.innerHTML = "0 "
+}
+
+// Fonction pour Modifier quantité de l'article
+function modifyQuantity() {
+    const itemToChangeQuantity = document.getElementsByClassName("cart__item");
+    for (let i = 0; i < itemToChangeQuantity.length; i++) {
+
+        let buttonChangeQuantity = itemToChangeQuantity[i].getElementsByClassName("itemQuantity");
+        buttonChangeQuantity[0].addEventListener('change', function (event) {
+            myBasket[i].quantity = parseInt(event.target.value);
+
+            if (buttonChangeQuantity[0].value <= 100 && buttonChangeQuantity[0].value >= 1) {
+                localStorage.setItem("basket", JSON.stringify(myBasket));
+            } else {
+                alert("La quantitée du produit doit être comprise entre 1 et 100.");
+                buttonChangeQuantity[0].value = 1;
+                myBasket[i].quantity = 1;
+                localStorage.setItem("basket", JSON.stringify(myBasket));
+            }
+            getNumberProduct();
+            getTotalPrice();
+            saveBasket(myBasket);
+        })
+    }
+}
+
+
+// Supprimer un produit
+function removeFromBasket(id, color) {
+    myBasket = myBasket.filter(product => {
+        if (product.id == id && product.color == color) {
+            return false;
+        }
+        return true;
+    });
+    localStorage.setItem("addToCart", JSON.stringify(myBasket));
+};
+function removeProduct() {
+    document.querySelectorAll(".deleteItem").forEach(button => {
+        // Pour chaque clique
+        button.addEventListener("click", (e) => {
+            // Récupération de l'id et de la couleur du produit
+            let removeId = e.target.closest('article').getAttribute('data-id');
+            let removeColor = e.target.closest('article').getAttribute('data-color');
+
+            // Suppression du produit
+            removeFromBasket(removeId, removeColor);
+            if (myBasket.length === 0) {
+                localStorage.clear();
+                window.location.reload();
+            }
+            // Actualisation de la page
+            window.location.reload();
+        });
+    })
+    saveBasket(myBasket);
+}
 
 
 // ****************** FORMULAIRE ******************//
@@ -183,16 +294,16 @@ function postForm() {
         }
         // Vérification du formulaire 
         if (checkForm(contact)) {
-            console.log(basket);
+            console.log(myBasket);
             // Vérification du panier 
-            if (basket == null) {
+            if (myBasket == null) {
                 alert("Votre panier est vide")
                 // console.log("Votre panier est vide");
             } else {
                 // Création tableau pour ajouter tous les id du panier 
                 let products = [];
-                for (let i = 0; i < basket.length; i++) {
-                    products.push(basket[i]._id);
+                for (let i = 0; i < myBasket.length; i++) {
+                    products.push(myBasket[i]._id);
                 }
                 console.log(products);
 
