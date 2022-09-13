@@ -1,12 +1,12 @@
 
-// function fillMe() {
-//     const filler = [{"colors":"Green","_id":"055743915a544fde83cfdfc904935ee7","name":"Kanap Calycé","price":3199,"imageUrl":"http://localhost:3000/images/kanap03.jpeg","description":"Pellentesque fermentum arcu venenatis ex sagittis accumsan. Vivamus lacinia fermentum tortor.Mauris imperdiet tellus ante.","altTxt":"Photo d'un canapé d'angle, vert, trois places","quantity":"4"},{"colors":"Red","_id":"055743915a544fde83cfdfc904935ee7","name":"Kanap Calycé","price":3199,"imageUrl":"http://localhost:3000/images/kanap03.jpeg","description":"Pellentesque fermentum arcu venenatis ex sagittis accumsan. Vivamus lacinia fermentum tortor.Mauris imperdiet tellus ante.","altTxt":"Photo d'un canapé d'angle, vert, trois places","quantity":"3"},{"colors":"Black","_id":"107fb5b75607497b96722bda5b504926","name":"Kanap Sinopé","price":1849,"imageUrl":"http://localhost:3000/images/kanap01.jpeg","description":"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.","altTxt":"Photo d'un canapé bleu, deux places","quantity":"2"},{"colors":"Blue","_id":"107fb5b75607497b96722bda5b504926","name":"Kanap Sinopé","price":1849,"imageUrl":"http://localhost:3000/images/kanap01.jpeg","description":"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.","altTxt":"Photo d'un canapé bleu, deux places","quantity":"2"},{"colors":"White","_id":"107fb5b75607497b96722bda5b504926","name":"Kanap Sinopé","price":1849,"imageUrl":"http://localhost:3000/images/kanap01.jpeg","description":"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.","altTxt":"Photo d'un canapé bleu, deux places","quantity":"5"},{"colors":"White","_id":"a557292fe5814ea2b15c6ef4bd73ed83","name":"Kanap Autonoé","price":1499,"imageUrl":"http://localhost:3000/images/kanap04.jpeg","description":"Donec mattis nisl tortor, nec blandit sapien fermentum at. Proin hendrerit efficitur fringilla. Lorem ipsum dolor sit amet.","altTxt":"Photo d'un canapé rose, une à deux place","quantity":"5"}]
-//     window.localStorage.setItem('basket', JSON.stringify(filler))
-// }
-// const fillerBtn = document.createElement('button')
-// fillerBtn.textContent = 'remplis moi ce panier'
-// fillerBtn.addEventListener('click', function(){fillMe()})
-// document.querySelector('.cart').appendChild(fillerBtn)
+function fillMe() {
+    const filler = [{"colors":"Green","_id":"055743915a544fde83cfdfc904935ee7","name":"Kanap Calycé","price":3199,"imageUrl":"http://localhost:3000/images/kanap03.jpeg","description":"Pellentesque fermentum arcu venenatis ex sagittis accumsan. Vivamus lacinia fermentum tortor.Mauris imperdiet tellus ante.","altTxt":"Photo d'un canapé d'angle, vert, trois places","quantity":"4"},{"colors":"Red","_id":"055743915a544fde83cfdfc904935ee7","name":"Kanap Calycé","price":3199,"imageUrl":"http://localhost:3000/images/kanap03.jpeg","description":"Pellentesque fermentum arcu venenatis ex sagittis accumsan. Vivamus lacinia fermentum tortor.Mauris imperdiet tellus ante.","altTxt":"Photo d'un canapé d'angle, vert, trois places","quantity":"3"},{"colors":"Black","_id":"107fb5b75607497b96722bda5b504926","name":"Kanap Sinopé","price":1849,"imageUrl":"http://localhost:3000/images/kanap01.jpeg","description":"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.","altTxt":"Photo d'un canapé bleu, deux places","quantity":"2"},{"colors":"Blue","_id":"107fb5b75607497b96722bda5b504926","name":"Kanap Sinopé","price":1849,"imageUrl":"http://localhost:3000/images/kanap01.jpeg","description":"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.","altTxt":"Photo d'un canapé bleu, deux places","quantity":"2"},{"colors":"White","_id":"107fb5b75607497b96722bda5b504926","name":"Kanap Sinopé","price":1849,"imageUrl":"http://localhost:3000/images/kanap01.jpeg","description":"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.","altTxt":"Photo d'un canapé bleu, deux places","quantity":"5"},{"colors":"White","_id":"a557292fe5814ea2b15c6ef4bd73ed83","name":"Kanap Autonoé","price":1499,"imageUrl":"http://localhost:3000/images/kanap04.jpeg","description":"Donec mattis nisl tortor, nec blandit sapien fermentum at. Proin hendrerit efficitur fringilla. Lorem ipsum dolor sit amet.","altTxt":"Photo d'un canapé rose, une à deux place","quantity":"5"}]
+    window.localStorage.setItem('basket', JSON.stringify(filler))
+}
+const fillerBtn = document.createElement('button')
+fillerBtn.textContent = 'remplis moi ce panier'
+fillerBtn.addEventListener('click', function(){fillMe()})
+document.querySelector('.cart').appendChild(fillerBtn)
 
 // Récupération du localstorage
 let myBasket = JSON.parse(localStorage.getItem("basket"));
@@ -103,20 +103,22 @@ function displayBasket() {
             productItemContentSettingsDelete.appendChild(productDelete);
             productDelete.className = "deleteItem";
             productDelete.innerHTML = "Supprimer";
-            // productDelete.addEventListener("click", (e) =>{
-            //     console.log(product);
-            //     removeFromBasket(product);
-            //     productArticle.remove();
-            // })
+            productDelete.addEventListener("click", (e) =>{
+                console.log(product);
+                removeFromBasket(product);
+                productArticle.remove();
+            })
                 
-           removeProduct(); 
-           modifyQuantity();
-            // Nombre total de produits
-            getNumberProduct(myBasket);
-            // Prix total
-            getTotalPrice(myBasket);
+            // removeProduct(); 
+            modifyQuantity();
+            
             saveBasket(myBasket);
         }
+
+        // Nombre total de produits
+        getNumberProduct(myBasket);
+        // Prix total
+        getTotalPrice(myBasket);
     } else {
         emptyBasket();
     }
@@ -191,36 +193,29 @@ function modifyQuantity() {
 
 
 // Supprimer un produit
-function removeFromBasket(id, color) {
-    myBasket = myBasket.filter(product => {
-        if (product.id == id && product.color == color) {
-            return false;
+function removeFromBasket(product){
+    // Si même id qu'un autre produit mais une couleur !==, supprimer seulement le produit selectionné
+    myBasket = myBasket.filter(function(p){
+        if(p._id !== product._id){
+            return(p);
         }
-        return true;
-    });
-    localStorage.setItem("addToCart", JSON.stringify(myBasket));
-};
-function removeProduct() {
-    document.querySelectorAll(".deleteItem").forEach(button => {
-        // Pour chaque clique
-        button.addEventListener("click", (e) => {
-            // Récupération de l'id et de la couleur du produit
-            let removeId = e.target.closest('article').getAttribute('data-id');
-            let removeColor = e.target.closest('article').getAttribute('data-color');
-
-            // Suppression du produit
-            removeFromBasket(removeId, removeColor);
-            if (myBasket.length === 0) {
-                localStorage.clear();
-                window.location.reload();
+        else{
+            if(p.colors !== product.colors){
+                return(p);
             }
-            // Actualisation de la page
-            window.location.reload();
-        });
+        }        
     })
     saveBasket(myBasket);
-}
+    // Si le panier est vide, je le supprime du locaStorage
+    if(myBasket.length === 0){
+        localStorage.clear();
+    }
 
+    window.location.reload();
+    // Change l'affichage de quantité et prix total
+    getNumberProduct();
+    getTotalPrice(myBasket);
+}
 
 // ****************** FORMULAIRE ******************//
 
