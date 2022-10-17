@@ -116,14 +116,9 @@ function displayBasket() {
             productDelete.addEventListener("click", (e) =>{
                 productArticle.remove();
                 removeFromBasket(product);
-            })
-            
-            
-            
-            
+            })   
         });
-
-            
+        
           // Prix total
             getTotalPrice()
             // Nombre total de produits  
