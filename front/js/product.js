@@ -11,6 +11,7 @@
         // Ajout du produit dans le localStorage si valeur de l'input est non nulle
         if(btnQuantity.value > 0 && btnColor.value !== undefined && btnColor.value !== null && btnColor.value !== ""){
             addBasket(product); 
+            alert(product.name + " a été ajouté au panier")
         }
         else{
             console.error(btnQuantity.value, btnColor.value);

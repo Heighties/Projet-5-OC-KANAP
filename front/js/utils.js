@@ -4,6 +4,7 @@ const btnColor = document.getElementById("colors");
 const btnQuantity = document.getElementById("quantity");
 
 
+
 // Enregistrer le panier dans le local storage
 function saveBasket(newBasket){
     // Prendre l'objet et le transforme en chaine de char (serialization)
@@ -23,11 +24,17 @@ function getBasket(){
 
 // Ajouter un produit au panier ou modifie le produit si même ID et même couleur
 function addBasket(product){
+
     let basket = getBasket();
-    let productModif = Object.assign({}, product, {
-        colors : `${btnColor.value}`,
+    // let productModif = Object.assign({}, product, {
+    //     colors : `${btnColor.value}`,
+    //     quantity: `${btnQuantity.value}`
+    // });
+    let productModif = {
+        id: product._id,
+        colors: `${btnColor.value}`,
         quantity: `${btnQuantity.value}`
-    });
+    }
     // Recherche dans panier s'il y a un id = id du produit à ajouter
     // Recherche si même produit avec même couleur
     let foundExactlySameProduct = basket.find(p => p._id === productModif._id && p.colors === productModif.colors);
@@ -73,6 +80,7 @@ function addBasket(product){
             basket.push(productModif);
     }
     saveBasket(basket);
+    console.log(productModif);
 }
 
 

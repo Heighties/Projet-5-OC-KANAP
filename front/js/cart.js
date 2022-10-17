@@ -1,23 +1,31 @@
 
-function fillMe() {
-    const filler = [{"colors":"Green","_id":"055743915a544fde83cfdfc904935ee7","name":"Kanap Calycé","price":3199,"imageUrl":"http://localhost:3000/images/kanap03.jpeg","description":"Pellentesque fermentum arcu venenatis ex sagittis accumsan. Vivamus lacinia fermentum tortor.Mauris imperdiet tellus ante.","altTxt":"Photo d'un canapé d'angle, vert, trois places","quantity":"4"},{"colors":"Red","_id":"055743915a544fde83cfdfc904935ee7","name":"Kanap Calycé","price":3199,"imageUrl":"http://localhost:3000/images/kanap03.jpeg","description":"Pellentesque fermentum arcu venenatis ex sagittis accumsan. Vivamus lacinia fermentum tortor.Mauris imperdiet tellus ante.","altTxt":"Photo d'un canapé d'angle, vert, trois places","quantity":"3"},{"colors":"Black","_id":"107fb5b75607497b96722bda5b504926","name":"Kanap Sinopé","price":1849,"imageUrl":"http://localhost:3000/images/kanap01.jpeg","description":"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.","altTxt":"Photo d'un canapé bleu, deux places","quantity":"2"},{"colors":"Blue","_id":"107fb5b75607497b96722bda5b504926","name":"Kanap Sinopé","price":1849,"imageUrl":"http://localhost:3000/images/kanap01.jpeg","description":"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.","altTxt":"Photo d'un canapé bleu, deux places","quantity":"2"},{"colors":"White","_id":"107fb5b75607497b96722bda5b504926","name":"Kanap Sinopé","price":1849,"imageUrl":"http://localhost:3000/images/kanap01.jpeg","description":"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.","altTxt":"Photo d'un canapé bleu, deux places","quantity":"5"},{"colors":"White","_id":"a557292fe5814ea2b15c6ef4bd73ed83","name":"Kanap Autonoé","price":1499,"imageUrl":"http://localhost:3000/images/kanap04.jpeg","description":"Donec mattis nisl tortor, nec blandit sapien fermentum at. Proin hendrerit efficitur fringilla. Lorem ipsum dolor sit amet.","altTxt":"Photo d'un canapé rose, une à deux place","quantity":"5"}]
-    window.localStorage.setItem('basket', JSON.stringify(filler))
-}
-const fillerBtn = document.createElement('button')
-fillerBtn.textContent = 'remplis moi ce panier'
-fillerBtn.addEventListener('click', function(){fillMe()})
-document.querySelector('.cart').appendChild(fillerBtn)
+// function fillMe() {
+//     const filler = [{"colors":"Green","_id":"055743915a544fde83cfdfc904935ee7","name":"Kanap Calycé","price":3199,"imageUrl":"http://localhost:3000/images/kanap03.jpeg","description":"Pellentesque fermentum arcu venenatis ex sagittis accumsan. Vivamus lacinia fermentum tortor.Mauris imperdiet tellus ante.","altTxt":"Photo d'un canapé d'angle, vert, trois places","quantity":"4"},{"colors":"Red","_id":"055743915a544fde83cfdfc904935ee7","name":"Kanap Calycé","price":3199,"imageUrl":"http://localhost:3000/images/kanap03.jpeg","description":"Pellentesque fermentum arcu venenatis ex sagittis accumsan. Vivamus lacinia fermentum tortor.Mauris imperdiet tellus ante.","altTxt":"Photo d'un canapé d'angle, vert, trois places","quantity":"3"},{"colors":"Black","_id":"107fb5b75607497b96722bda5b504926","name":"Kanap Sinopé","price":1849,"imageUrl":"http://localhost:3000/images/kanap01.jpeg","description":"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.","altTxt":"Photo d'un canapé bleu, deux places","quantity":"2"},{"colors":"Blue","_id":"107fb5b75607497b96722bda5b504926","name":"Kanap Sinopé","price":1849,"imageUrl":"http://localhost:3000/images/kanap01.jpeg","description":"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.","altTxt":"Photo d'un canapé bleu, deux places","quantity":"2"},{"colors":"White","_id":"107fb5b75607497b96722bda5b504926","name":"Kanap Sinopé","price":1849,"imageUrl":"http://localhost:3000/images/kanap01.jpeg","description":"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.","altTxt":"Photo d'un canapé bleu, deux places","quantity":"5"},{"colors":"White","_id":"a557292fe5814ea2b15c6ef4bd73ed83","name":"Kanap Autonoé","price":1499,"imageUrl":"http://localhost:3000/images/kanap04.jpeg","description":"Donec mattis nisl tortor, nec blandit sapien fermentum at. Proin hendrerit efficitur fringilla. Lorem ipsum dolor sit amet.","altTxt":"Photo d'un canapé rose, une à deux place","quantity":"5"}]
+//     window.localStorage.setItem('basket', JSON.stringify(filler))
+// }
+// const fillerBtn = document.createElement('button')
+// fillerBtn.textContent = 'remplis moi ce panier'
+// fillerBtn.addEventListener('click', function(){fillMe()})
+// document.querySelector('.cart').appendChild(fillerBtn)
 
 // Récupération du localstorage
 let myBasket = JSON.parse(localStorage.getItem("basket"));
 // console.log(myBasket);
+// let getBasketPrice = 0;
+
+
 
 // Affichage du panier
 function displayBasket() {
     if (myBasket) {
+       
         // Récupération des infos manquantes via l'API
-        for (let i = 0; i < myBasket.length; i++) {
-            const product = myBasket[i];
+        
+        for(let product of myBasket){
+            fetch(`http://localhost:3000/api/products/${product.id}`)
+            .then((res) => res.json())
+            .then(function (productApi){
+                console.log(productApi);
           
             // Création de la balise article et insertion dans la section
             let productArticle = document.createElement("article");
@@ -33,8 +41,8 @@ function displayBasket() {
             // Insertion de l'image
             let productImg = document.createElement("img");
             productDivImg.appendChild(productImg);
-            productImg.src = product.imageUrl;
-            productImg.alt = product.altTxt;
+            productImg.src = productApi.imageUrl;
+            productImg.alt = productApi.altTxt;
 
             // Insertion de la div pour la description
             let productItemContent = document.createElement("div");
@@ -49,7 +57,7 @@ function displayBasket() {
             // Insertion de h2
             let productTitle = document.createElement("h2");
             productItemContentDescription.appendChild(productTitle);
-            productTitle.innerHTML = product.name;
+            productTitle.innerHTML = productApi.name;
 
             // Insertion de la couleur
             let productColor = document.createElement("p");
@@ -59,10 +67,10 @@ function displayBasket() {
             // Insertion du prix
             let productPrice = document.createElement("p");
             productItemContentDescription.appendChild(productPrice);
-            productPrice.innerHTML = product.price + " €";
+            productPrice.innerHTML = productApi.price + " €";
 
             // Création de price et récupération du prix
-            product.price = product.price;
+            // product.price = productApi.price;
 
             // Insertion de la div
             let productItemContentSettings = document.createElement("div");
@@ -88,10 +96,12 @@ function displayBasket() {
             productQuantity.setAttribute("min", "1");
             productQuantity.setAttribute("max", "100");
             productQuantity.setAttribute("name", "itemQuantity");
-            productQuantity.addEventListener("click", (e) =>{
-                changeQuantity(e.target);
             
-            })
+            productQuantity.addEventListener("click", (e) =>{
+                //  changeQuantity(e.target);
+                modifyQuantity(product.quantity, productApi.price);
+             })
+            
 
             // Insertion de la div
             let productItemContentSettingsDelete = document.createElement("div");
@@ -104,56 +114,84 @@ function displayBasket() {
             productDelete.className = "deleteItem";
             productDelete.innerHTML = "Supprimer";
             productDelete.addEventListener("click", (e) =>{
-                console.log(product);
-                removeFromBasket(product);
                 productArticle.remove();
+                removeFromBasket(product);
             })
-                
-            // removeProduct(); 
-            saveBasket(myBasket);
-        }
+            
+            
+            
+            
+        });
 
-        // Nombre total de produits
-        getNumberProduct(myBasket);
-        // Prix total
-        getTotalPrice(myBasket);
-    } else {
+            
+          // Prix total
+            getTotalPrice()
+            // Nombre total de produits  
+            getNumberProduct()
+            saveBasket(myBasket);
+        }}
+    else {
         emptyBasket();
     }
 }
 displayBasket();
 
+
 // *********************** utils.js ****************************//
+function getTotalPrice(quantity, price) {
+    // Calcul du prix total
+    // let getTotalPrice = 0;
+    //  for (let i = 0; i < myBasket.length; i++) {
+    //     getTotalPrice += parseInt(productApi[i].price) * parseInt(myBasket[i].quantity);
+    //  }
+
+    let getTotalPrice = 0;
+    getTotalPrice += quantity * price;
+
+    document.getElementById("totalPrice").innerHTML = getTotalPrice;
+}
 
 // Récupérer le nombres total de produits
 function getNumberProduct(){
     // console.log(basket, JSON.parse(localStorage.getItem("basket")));
     let quantityBasket = myBasket.map(x => x.quantity);
     let getNumberProduct = 0;
+
     for (let i = 0; i < quantityBasket.length; i++) {
         getNumberProduct += parseInt(quantityBasket[i]);
     }
+    
     document.getElementById("totalQuantity").innerHTML = getNumberProduct;
     
 }
 
 // Avoir le prix total du panier
 // function getTotalPrice(){
-//     let cart = getBasket();
+//     let myBasket = getBasket();
 //     let getTotalPrice = 0;
-//     for (let i = 0; i < cart.length; i++) {
-//         getTotalPrice += parseInt(cart[i].price) * parseInt(cart[i].quantity);
+//     for (let i = 0; i < myBasket.length; i++) {
+//         getTotalPrice += parseInt(productApi[i].price) * parseInt(myBasket[i].quantity);
 //     }
 //     document.getElementById("totalPrice").innerHTML = getTotalPrice;
 // }
-function getTotalPrice() {
-    let getTotalPrice = 0;
-    for (let i = 0; i < myBasket.length; i++) {
-        getTotalPrice += parseInt(myBasket[i].price) * parseInt(myBasket[i].quantity);
-    }
 
-    document.getElementById("totalPrice").innerHTML = getTotalPrice;
-}
+
+// function arrProductApi(){
+//     for(let productApi of myBasket){
+//         let array = Object.entries(productApi)
+//         console.log(array)
+//     }
+// }
+
+
+// function getTotalPrice(arrProductApi) {
+//     let getTotalPrice = 0;
+//     for (let i = 0; i < arrProductApi.length; i++) {
+//         getTotalPrice += parseInt(arrProductApi[i].price) * parseInt(arrProductApi[i].quantity);
+//     }
+//     document.getElementById("totalPrice").innerHTML = getTotalPrice;
+// }
+
 
 // Modification du titre Panier si vide 
 function emptyBasket(){
@@ -166,27 +204,47 @@ function emptyBasket(){
 }
 
 
-// Changer la quantité de produit
-function changeQuantity(element){
-    // Récupération du panier
-    const node = element.closest(".cart__item");
-    const myArray = document.querySelectorAll(".cart__item");
-    const myIndex = Array.prototype.indexOf.call(myArray, node);
-    console.log(node);
-    const value = element.value;
+// // Changer la quantité de produit
+// function changeQuantity(element){
+//     // Récupération du panier
+//     const node = element.closest(".cart__item");
+//     const myArray = document.querySelectorAll(".cart__item");
+//     const myIndex = Array.prototype.indexOf.call(myArray, node);
+//     const value = element.value;
    
-    // Boucle sur chaque produit du panier
-    for (let i = 0; i <= myBasket.length; i++) {
-        const product = myBasket[i];
-        // Si je suis sur le même produit, j'édite sa quantité
-        if( i === myIndex){
-            product.quantity = value;
-        }
+//     // Boucle sur chaque produit du panier
+//     for (let i = 0; i <= myBasket.length; i++) {
+//         const product = myBasket[i];
+//         // Si je suis sur le même produit, j'édite sa quantité
+//         if( i === myIndex){
+//             product.quantity = value;
+//         }
+//     }
+//     // Mise à jour du panier
+// }
+
+
+function modifyQuantity(quantity, price) {
+    const itemToChangeQuantity = document.getElementsByClassName("cart__item");
+    for (let i = 0; i < itemToChangeQuantity.length; i++) {
+
+        let buttonChangeQuantity = itemToChangeQuantity[i].getElementsByClassName("itemQuantity");
+        buttonChangeQuantity[0].addEventListener('change', function (event) {
+            myBasket[i].quantity = parseInt(event.target.value);
+
+            if (buttonChangeQuantity[0].value <= 100 && buttonChangeQuantity[0].value >= 1) {
+                localStorage.setItem("basket", JSON.stringify(myBasket));
+            } else {
+                alert("La quantitée du produit doit être comprise entre 1 et 100.");
+                buttonChangeQuantity[0].value = 1;
+                myBasket[i].quantity = 1;
+                localStorage.setItem("addToCart", JSON.stringify(myBasket));
+            }
+            
+        })
     }
-    // Mise à jour du panier
-    getNumberProduct();
+    getNumberProduct(myBasket);
     getTotalPrice();
-    saveBasket(myBasket);
 }
 
 
@@ -204,9 +262,12 @@ function removeFromBasket(product){
         }        
     })
    
+    console.log(myBasket.length);
     // Si le panier est vide, je le supprime du locaStorage
-    if(myBasket.length === 0){
+    if(myBasket.length == 0){
         localStorage.clear();
+        emptyBasket();
+        return;
     }
 
     // window.location.reload();
@@ -215,6 +276,7 @@ function removeFromBasket(product){
     getTotalPrice(myBasket);
     saveBasket(myBasket);
 }
+
 
 // ****************** FORMULAIRE ******************//
 
