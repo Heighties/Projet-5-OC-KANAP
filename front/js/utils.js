@@ -78,8 +78,6 @@ function addBasket(product){
     saveBasket(basket);
 }
 
-
-
 //**********************************************//
 
 // Si ID non défini dans l'URL renvoyer vers page d'accueil 

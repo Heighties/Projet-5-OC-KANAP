@@ -118,21 +118,23 @@ displayBasket();
 
 
 
-// *********************** utils.js ****************************//
+// *********************** utils****************************//
 
+// Fonction asynchrone pour mettre à jour et afficher la quantité totale + prix total
 async function updateTotal(){
     quantity = 0;
     price =0;
     if(myBasket){
     for(let product of myBasket){
-       await addProductToTotal(product);
+       await addProductTotalPrice(product);
     }
     document.getElementById("totalQuantity").innerHTML = quantity;
     document.getElementById("totalPrice").innerHTML = price;
 }
 }
 
-async function addProductToTotal(product) {
+// Calcul du prix des produits dans l'API selon quantité LS
+async function addProductTotalPrice(product) {
     return  fetch(`http://localhost:3000/api/products/${product.id}`)
     .then((res) => res.json())
     .then(function (productApi){
@@ -142,18 +144,6 @@ async function addProductToTotal(product) {
 }
 
 
-// Récupérer le nombres total de produits
-function getNumberProduct(){
-    let quantityBasket = myBasket.map(x => x.quantity);
-    let getNumberProduct = 0;
-
-    for (let i = 0; i < quantityBasket.length; i++) {
-        getNumberProduct += parseInt(quantityBasket[i]);
-    }
-    
-    document.getElementById("totalQuantity").innerHTML = getNumberProduct;
-    
-}
 
 
 // Modification du titre Panier si vide 
@@ -189,10 +179,7 @@ function removeFromBasket(product){
         return;
     }
 
-    // window.location.reload();
     // Change l'affichage de quantité et prix total
-    getNumberProduct();
-    // getTotalPrice(myBasket);
     saveBasket(myBasket);
 }
 
