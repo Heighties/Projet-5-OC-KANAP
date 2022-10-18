@@ -76,7 +76,6 @@ function addBasket(product){
             basket.push(productModif);
     }
     saveBasket(basket);
-    console.log(productModif);
 }
 
 

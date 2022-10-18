@@ -1,5 +1,4 @@
 const id = new URL(window.location.href).searchParams.get("id");
-console.log(id);
 
 // Si ID non défini renvoyer vers page d'accueil 
 redirect();

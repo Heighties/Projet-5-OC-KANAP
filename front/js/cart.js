@@ -86,6 +86,7 @@ function displayBasket() {
             productQuantity.addEventListener("click", (e) =>{
                 product.quantity = productQuantity.value;
                 updateTotal();
+                saveBasket(myBasket);
              })
              
 
@@ -103,8 +104,7 @@ function displayBasket() {
                 productArticle.remove();
                 removeFromBasket(product);
                 updateTotal();
-            }) 
-            // updateTotal();        
+            })      
         });
 
             saveBasket(myBasket);
@@ -123,28 +123,27 @@ displayBasket();
 async function updateTotal(){
     quantity = 0;
     price =0;
+    if(myBasket){
     for(let product of myBasket){
        await addProductToTotal(product);
     }
-    console.log(quantity);
     document.getElementById("totalQuantity").innerHTML = quantity;
     document.getElementById("totalPrice").innerHTML = price;
+}
 }
 
 async function addProductToTotal(product) {
     return  fetch(`http://localhost:3000/api/products/${product.id}`)
     .then((res) => res.json())
     .then(function (productApi){
-        console.log(product);
-        quantity += parseInt(product.quantity,10);
-        price += parseInt(productApi.price * product.quantity,10);
+        quantity += parseInt(product.quantity);
+        price += parseInt(productApi.price * product.quantity);
     });
 }
 
 
 // Récupérer le nombres total de produits
 function getNumberProduct(){
-    // console.log(basket, JSON.parse(localStorage.getItem("basket")));
     let quantityBasket = myBasket.map(x => x.quantity);
     let getNumberProduct = 0;
 
@@ -182,8 +181,7 @@ function removeFromBasket(product){
             }
         }        
     })
-   
-    console.log(myBasket.length);
+
     // Si le panier est vide, je le supprime du locaStorage
     if(myBasket.length == 0){
         localStorage.clear();
@@ -194,7 +192,7 @@ function removeFromBasket(product){
     // window.location.reload();
     // Change l'affichage de quantité et prix total
     getNumberProduct();
-    getTotalPrice(myBasket);
+    // getTotalPrice(myBasket);
     saveBasket(myBasket);
 }
 
@@ -271,18 +269,18 @@ function postForm() {
         }
         // Vérification du formulaire 
         if (checkForm(contact)) {
-            console.log(myBasket);
+
             // Vérification du panier 
             if (myBasket == null) {
                 alert("Votre panier est vide")
-                // console.log("Votre panier est vide");
+                
             } else {
                 // Création tableau pour ajouter tous les id du panier 
                 let products = [];
                 for (let i = 0; i < myBasket.length; i++) {
                     products.push(myBasket[i].id);
                 }
-                console.log(products);
+                
 
                 // Création objet avec les valeurs du formulaire et les produits du panier
                 let sendFormData = {
@@ -302,7 +300,6 @@ postForm()
 
 // Fonction qui redirige vers la page de confirmation
 function sendPost(sendFormData) {
-    console.log(sendFormData)
     const post = {
         method: "POST",
         headers: {
@@ -316,7 +313,6 @@ function sendPost(sendFormData) {
     fetch("http://localhost:3000/api/products/order", post)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             localStorage.setItem("orderId", data.orderId);
             document.location.href = "confirmation.html?id=" + data.orderId;
         })
