@@ -103,7 +103,8 @@ function displayBasket() {
                 productArticle.remove();
                 removeFromBasket(product);
                 updateTotal();
-            })               
+            }) 
+            // updateTotal();        
         });
 
             saveBasket(myBasket);
@@ -279,7 +280,7 @@ function postForm() {
                 // Création tableau pour ajouter tous les id du panier 
                 let products = [];
                 for (let i = 0; i < myBasket.length; i++) {
-                    products.push(myBasket[i]._id);
+                    products.push(myBasket[i].id);
                 }
                 console.log(products);
 
