@@ -26,10 +26,6 @@ function getBasket(){
 function addBasket(product){
 
     let basket = getBasket();
-    // let productModif = Object.assign({}, product, {
-    //     colors : `${btnColor.value}`,
-    //     quantity: `${btnQuantity.value}`
-    // });
     let productModif = {
         id: product._id,
         colors: `${btnColor.value}`,

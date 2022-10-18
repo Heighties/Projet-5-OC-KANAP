@@ -1,13 +1,5 @@
 let quantity = 0;
 let price =0;
-// function fillMe() {
-//     const filler = [{"colors":"Green","_id":"055743915a544fde83cfdfc904935ee7","name":"Kanap Calycé","price":3199,"imageUrl":"http://localhost:3000/images/kanap03.jpeg","description":"Pellentesque fermentum arcu venenatis ex sagittis accumsan. Vivamus lacinia fermentum tortor.Mauris imperdiet tellus ante.","altTxt":"Photo d'un canapé d'angle, vert, trois places","quantity":"4"},{"colors":"Red","_id":"055743915a544fde83cfdfc904935ee7","name":"Kanap Calycé","price":3199,"imageUrl":"http://localhost:3000/images/kanap03.jpeg","description":"Pellentesque fermentum arcu venenatis ex sagittis accumsan. Vivamus lacinia fermentum tortor.Mauris imperdiet tellus ante.","altTxt":"Photo d'un canapé d'angle, vert, trois places","quantity":"3"},{"colors":"Black","_id":"107fb5b75607497b96722bda5b504926","name":"Kanap Sinopé","price":1849,"imageUrl":"http://localhost:3000/images/kanap01.jpeg","description":"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.","altTxt":"Photo d'un canapé bleu, deux places","quantity":"2"},{"colors":"Blue","_id":"107fb5b75607497b96722bda5b504926","name":"Kanap Sinopé","price":1849,"imageUrl":"http://localhost:3000/images/kanap01.jpeg","description":"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.","altTxt":"Photo d'un canapé bleu, deux places","quantity":"2"},{"colors":"White","_id":"107fb5b75607497b96722bda5b504926","name":"Kanap Sinopé","price":1849,"imageUrl":"http://localhost:3000/images/kanap01.jpeg","description":"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.","altTxt":"Photo d'un canapé bleu, deux places","quantity":"5"},{"colors":"White","_id":"a557292fe5814ea2b15c6ef4bd73ed83","name":"Kanap Autonoé","price":1499,"imageUrl":"http://localhost:3000/images/kanap04.jpeg","description":"Donec mattis nisl tortor, nec blandit sapien fermentum at. Proin hendrerit efficitur fringilla. Lorem ipsum dolor sit amet.","altTxt":"Photo d'un canapé rose, une à deux place","quantity":"5"}]
-//     window.localStorage.setItem('basket', JSON.stringify(filler))
-// }
-// const fillerBtn = document.createElement('button')
-// fillerBtn.textContent = 'remplis moi ce panier'
-// fillerBtn.addEventListener('click', function(){fillMe()})
-// document.querySelector('.cart').appendChild(fillerBtn)
 
 // Récupération du localstorage
 let myBasket = JSON.parse(localStorage.getItem("basket"));
@@ -28,7 +20,7 @@ function displayBasket() {
             let productArticle = document.createElement("article");
             document.querySelector("#cart__items").appendChild(productArticle);
             productArticle.className = "cart__item";
-
+            
 
             // Insertion de la div pour l'image
             let productDivImg = document.createElement("div");
@@ -66,9 +58,6 @@ function displayBasket() {
             productItemContentDescription.appendChild(productPrice);
             productPrice.innerHTML = productApi.price + " €";
 
-            // Création de price et récupération du prix
-            // product.price = productApi.price;
-
             // Insertion de la div
             let productItemContentSettings = document.createElement("div");
             productItemContent.appendChild(productItemContentSettings);
@@ -95,13 +84,9 @@ function displayBasket() {
             productQuantity.setAttribute("name", "itemQuantity");
             
             productQuantity.addEventListener("click", (e) =>{
-                //  changeQuantity(e.target);
-                // modifyQuantity(product.quantity, productApi.price);
                 product.quantity = productQuantity.value;
                 updateTotal();
              })
-            
-            //  modifyQuantity(product.quantity, productApi.price);
              
 
             // Insertion de la div
@@ -121,10 +106,6 @@ function displayBasket() {
             })               
         });
 
-            // Prix total
-            // getTotalPrice()
-            // Nombre total de produits 
-            // getNumberProduct(); 
             saveBasket(myBasket);
         }}
     else {
@@ -133,6 +114,10 @@ function displayBasket() {
     updateTotal();
 }
 displayBasket();
+
+
+
+// *********************** utils.js ****************************//
 
 async function updateTotal(){
     quantity = 0;
@@ -156,24 +141,6 @@ async function addProductToTotal(product) {
 }
 
 
-// *********************** utils.js ****************************//
-function getTotalPrice() {
-    // let quantity = myBasket.quantity;
-    // let price = productApi.price;
-    // Calcul du prix total
-    // let getTotalPrice = 0;
-    //  for (let i = 0; i < myBasket.length; i++) {
-    //     getTotalPrice += parseInt(productApi[i].price) * parseInt(myBasket[i].quantity);
-    //  }
-
-    // let getTotalPrice = 0;
-    // getTotalPrice += quantity * price;
-
-    // document.getElementById("totalPrice").innerHTML = getTotalPrice;
-    // let totalPrice = productApi.price * product.quantity;
-    // document.getElementById("totalPrice").innerHTML = totalPrice;
-}
-
 // Récupérer le nombres total de produits
 function getNumberProduct(){
     // console.log(basket, JSON.parse(localStorage.getItem("basket")));
@@ -188,33 +155,6 @@ function getNumberProduct(){
     
 }
 
-// Avoir le prix total du panier
-// function getTotalPrice(){
-//     let myBasket = getBasket();
-//     let getTotalPrice = 0;
-//     for (let i = 0; i < myBasket.length; i++) {
-//         getTotalPrice += parseInt(productApi[i].price) * parseInt(myBasket[i].quantity);
-//     }
-//     document.getElementById("totalPrice").innerHTML = getTotalPrice;
-// }
-
-
-// function arrProductApi(){
-//     for(let productApi of myBasket){
-//         let array = Object.entries(productApi)
-//         console.log(array)
-//     }
-// }
-
-
-// function getTotalPrice(arrProductApi) {
-//     let getTotalPrice = 0;
-//     for (let i = 0; i < arrProductApi.length; i++) {
-//         getTotalPrice += parseInt(arrProductApi[i].price) * parseInt(arrProductApi[i].quantity);
-//     }
-//     document.getElementById("totalPrice").innerHTML = getTotalPrice;
-// }
-
 
 // Modification du titre Panier si vide 
 function emptyBasket(){
@@ -226,49 +166,6 @@ function emptyBasket(){
     totalPrice.innerHTML = "0 "
 }
 
-
-// // Changer la quantité de produit
-// function changeQuantity(element){
-//     // Récupération du panier
-//     const node = element.closest(".cart__item");
-//     const myArray = document.querySelectorAll(".cart__item");
-//     const myIndex = Array.prototype.indexOf.call(myArray, node);
-//     const value = element.value;
-   
-//     // Boucle sur chaque produit du panier
-//     for (let i = 0; i <= myBasket.length; i++) {
-//         const product = myBasket[i];
-//         // Si je suis sur le même produit, j'édite sa quantité
-//         if( i === myIndex){
-//             product.quantity = value;
-//         }
-//     }
-//     // Mise à jour du panier
-// }
-
-
-function modifyQuantity() {
-    const itemToChangeQuantity = document.getElementsByClassName("cart__item");
-    for (let i = 0; i < itemToChangeQuantity.length; i++) {
-
-        let buttonChangeQuantity = itemToChangeQuantity[i].getElementsByClassName("itemQuantity");
-        buttonChangeQuantity[0].addEventListener('change', function (event) {
-            myBasket[i].quantity = parseInt(event.target.value);
-
-            if (buttonChangeQuantity[0].value <= 100 && buttonChangeQuantity[0].value >= 1) {
-                localStorage.setItem("basket", JSON.stringify(myBasket));
-            } else {
-                alert("La quantitée du produit doit être comprise entre 1 et 100.");
-                buttonChangeQuantity[0].value = 1;
-                myBasket[i].quantity = 1;
-                localStorage.setItem("addToCart", JSON.stringify(myBasket));
-            }
-            
-        })
-    }
-    getNumberProduct();
-    getTotalPrice();
-}
 
 
 // Supprimer un produit
